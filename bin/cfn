@@ -1,0 +1,13 @@
+#!/bin/bash
+
+GIT_STATUS=`git status -s`
+
+DATE=`date +'%Y-%m-%d %T'`
+
+git add -A
+
+git commit -m "${DATE} ${GIT_STATUS}"
+
+git push origin master
+
+exit 0
