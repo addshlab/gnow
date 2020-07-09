@@ -16,7 +16,7 @@ if [ -e "${DIR}/bin/cfn" ]; then
     if [ ${CMD_EXIST} ]; then
         echo "create 'cfn' command."
     else
-        echo "'failed create 'cnf' command."
+        echo "'failed create 'cfn' command."
     fi
 else
     echo "'cfn' file not found."
