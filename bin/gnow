@@ -4,23 +4,38 @@ function green  { echo -e "\e[32m$*\e[m"; }
 function red { echo -e "\e[31m$*\e[m"; }
 function yellow { echo -e "\e[33m$*\e[m"; }
 
+MESSAGE=${1}
+BRANCH=${2}
 
-green "Ready? 'no' or press any key to execute"
+GIT_STATUS=`git status -s`
+DATE=`date +'%Y-%m-%d %T'`
+
+# コミットメッセージ引数が無い場合は日付とステータスをメッセージとする
+if [ -z ${MESSAGE} ]; then
+    MESSAGE="${DATE} ${GIT_STATUS}"
+fi
+
+# ブランチ引数が無い場合はmasterブランチにコミットする
+if [ -z ${BRANCH} ]; then
+    BRANCH=master
+fi
+
+green "Ready? 'no' or press any key to commit and push"
+yellow 'message:'
+echo -e ${MESSAGE}
+yellow 'branch:'
+echo ${BRANCH}
 
 read input
 
 if [ ${input} = 'no' ] || [ ${input} = 'NO' ] || [ ${input} = 'n' ]; then
     exit 0
 else
-    GIT_STATUS=`git status -s`
-
-    DATE=`date +'%Y-%m-%d %T'`
-
     git add -A
 
-    git commit -m "${DATE} ${GIT_STATUS}"
+    git commit -m "${MESSAGE}"
 
-    git push origin master
+    git push origin ${BRANCH}
 fi
 
 exit 0
