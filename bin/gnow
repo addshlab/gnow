@@ -9,15 +9,16 @@ BRANCH=${2}
 
 GIT_STATUS=`git status -s`
 DATE=`date +'%Y-%m-%d %T'`
+CURRENT_BRANCH=`git rev-parse --abbrev-ref @`
 
 # コミットメッセージ引数が無い場合は日付とステータスをメッセージとする
 if [ -z ${MESSAGE} ]; then
     MESSAGE="${DATE} ${GIT_STATUS}"
 fi
 
-# ブランチ引数が無い場合はmasterブランチにコミットする
+# ブランチ引数が無い場合は現在のブランチにコミットする
 if [ -z ${BRANCH} ]; then
-    BRANCH=master
+    BRANCH=${CURRENT_BRANCH}
 fi
 
 green "Ready? 'no' or press any key to commit and push"
