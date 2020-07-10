@@ -8,11 +8,16 @@ MESSAGE=${1}
 
 GIT_STATUS=`git status -s`
 DATE=`date +'%Y-%m-%d %T'`
-BRANCH=`git rev-parse --abbrev-ref @`
+BRANCH=`git rev-parse --abbrev-ref HEAD`
 
 # コミットメッセージ引数が無い場合は日付とステータスをメッセージとする
 if [ -z ${MESSAGE} ]; then
     MESSAGE="${DATE} ${GIT_STATUS}"
+fi
+
+# ローカルのブランチが存在しない初回pushとみられる場合はmasterにpushする
+if [ ${BRANCH} = 'HEAD']; then
+    BRANCH=master
 fi
 
 yellow 'message:'
