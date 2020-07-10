@@ -24,13 +24,17 @@ git clone https://github.com/addshlab/gnow.git
 ## インストール
 
 ```
-sh install.sh
+$ sh install.sh
 ```
+
+sudo実行パスワードを求められます。
+
+`/usr/local/bin/` に `bin/gnow` のシンボリックリンクを貼ってコマンド化します。
 
 ## アンインストール
 
 ```
-sh uninstall.sh
+$ sh uninstall.sh
 ```
 
 ## メッセージの意味
@@ -43,7 +47,35 @@ sh uninstall.sh
 * 'gnow' command already exist. -> gnow コマンドが既に存在する
 * 'gnow' file not found. -> gnow コマンドの実体ファイルが無い。ダウンロードが正常にできてないかったり、ファイルの一部が削除されている可能性がある
 
+## 使い方
+
+### 引数なし
+
+
+```
+$ gnow
+
+```
+
+* `git status` のファイルの状態をコミットメッセージとしてコミット
+* カレントブランチに `git push`
+
+### メッセージ引数あり
+
+```
+$ gnow README追加
+```
+
+* 引数に指定したメッセージでコミット
+* カレントブランチに `git push`
+
+## コメント
+
+* 殆どの場合カレントブランチにコミットするのでブランチ指定の機能は削除した
+* gitそのものに関する設定は事前に行っておいてください
+
 ## 履歴
 
+* 2020-07-10 コミットメッセージの任意追加機能
 * 2020-07-10 リポジトリ名 gnow, gnow コマンドに変更。シェルスクリプトを cfn としてコマンド化した後にタイプミスが多発したため、git の頭文字と now を組み合わせた
 * 2020-07-09 リポジトリ名 commit-for-now, cfn コマンドとして Github 公開
