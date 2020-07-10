@@ -22,7 +22,7 @@ fi
 
 green "Ready? 'no' or press any key to commit and push"
 yellow 'message:'
-echo -e ${MESSAGE}
+echo ${MESSAGE}
 yellow 'branch:'
 echo ${BRANCH}
 
