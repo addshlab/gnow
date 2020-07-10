@@ -28,7 +28,7 @@ echo ${BRANCH}
 
 read input
 
-if [ ${input} = 'no' ] || [ ${input} = 'NO' ] || [ ${input} = 'n' ]; then
+if [ "${input}" = 'no' ] || [ "${input}" = 'NO' ] || [ "${input}" = 'n' ]; then
     exit 0
 else
     git add -A
