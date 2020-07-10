@@ -47,6 +47,11 @@ $ sh uninstall.sh
 * 'gnow' command already exist. -> gnow コマンドが既に存在する
 * 'gnow' file not found. -> gnow コマンドの実体ファイルが無い。ダウンロードが正常にできてないかったり、ファイルの一部が削除されている可能性がある
 
+### gnow
+
+* Ready? 'no' or press ENTER -> 準備ができましたか。no と書いて中止するか、そのままエンターキーを押して実行してください
+* (補足) no 以外に、NO と n、Ctrl-c でも中止できます
+
 ## 使い方
 
 ### 引数なし
@@ -54,7 +59,6 @@ $ sh uninstall.sh
 
 ```
 $ gnow
-
 ```
 
 * `git status` のファイルの状態をコミットメッセージとしてコミット
