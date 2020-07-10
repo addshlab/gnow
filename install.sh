@@ -2,24 +2,24 @@
 
 DIR=$(cd $(dirname $0); pwd)
 
-CMD_EXIST=`command -v cfn`
+CMD_EXIST=`command -v gnow`
 
 if [ ${CMD_EXIST} ]; then
-    echo "'cfn' command already exist."
+    echo "'gnow' command already exist."
     exit 0
 fi
 
-if [ -e "${DIR}/bin/cfn" ]; then
-    sudo ln -si ${DIR}/bin/cfn /usr/local/bin
-    sudo chmod 777 ${DIR}/bin/cfn
-    CMD_EXIST=`command -v cfn`
+if [ -e "${DIR}/bin/gnow" ]; then
+    sudo ln -si ${DIR}/bin/gnow /usr/local/bin
+    sudo chmod 777 ${DIR}/bin/gnow
+    CMD_EXIST=`command -v gnow`
     if [ ${CMD_EXIST} ]; then
-        echo "create 'cfn' command."
+        echo "create 'gnow' command."
     else
-        echo "'failed create 'cfn' command."
+        echo "'failed create 'gnow' command."
     fi
 else
-    echo "'cfn' file not found."
+    echo "'gnow' file not found."
 fi
 
 exit 0

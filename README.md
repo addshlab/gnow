@@ -2,7 +2,7 @@
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-# cfn :: git commit for now
+# gnow :: **g**it commit for **now**
 
 ## 注意
 
@@ -10,14 +10,15 @@
 
 ## 説明
 
-git commit と git push を行うためのコマンド 'cnf' です。
+git commit と git push を行うためのコマンド 'gnow' です。
 
+発音: グナウ[gnaʊ]
 
 ## ダウンロード
 
 ```
 cd /home/YOUR-DIR/
-git clone https://github.com/addshlab/commit-for-now.git
+git clone https://github.com/addshlab/gnow.git
 ```
 
 ## インストール
@@ -36,12 +37,13 @@ sh uninstall.sh
 
 ### install.sh / uninstall.sh
 
-* create 'cfn' command. -> cfn コマンドの作成に成功した
-* delete 'cnf' command. -> cfn コマンドの削除に成功した
-* failed create 'cfn' command. ｰ> cfn コマンドの作成に失敗した
-* 'cfn' command already exist. -> cfn コマンドが既に存在する
-* 'cfn' file not found. -> cfn コマンドの実体ファイルが無い。ダウンロードが正常にできてないかったり、ファイルの一部が削除されている可能性がある
+* create 'gnow' command. -> gnow コマンドの作成に成功した
+* delete 'gnow' command. -> gnow コマンドの削除に成功した
+* failed create 'gnow' command. ｰ> gnow コマンドの作成に失敗した
+* 'gnow' command already exist. -> gnow コマンドが既に存在する
+* 'gnow' file not found. -> gnow コマンドの実体ファイルが無い。ダウンロードが正常にできてないかったり、ファイルの一部が削除されている可能性がある
 
+## 履歴
 
-
-
+* 2020-07-10 リポジトリ名 gnow, gnow コマンドに変更。シェルスクリプトを cfn としてコマンド化した後にタイプミスが多発したため、git の頭文字と now を組み合わせた
+* 2020-07-09 リポジトリ名 commit-for-now, cfn コマンドとして Github 公開
