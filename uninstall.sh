@@ -4,7 +4,7 @@ DIR=$(cd $(dirname $0); pwd)
 
 CMD_EXIST=`command -v gnow`
 
-sudo chmod 777 ${DIR}/gnow
+sudo chmod 777 ${DIR}/bin/gnow
 
 if [ ${CMD_EXIST} ]; then
     sudo unlink /usr/local/bin/gnow
