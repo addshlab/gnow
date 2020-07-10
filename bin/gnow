@@ -15,11 +15,11 @@ if [ -z ${MESSAGE} ]; then
     MESSAGE="${DATE} ${GIT_STATUS}"
 fi
 
-green "Ready? 'no' or press ENTER"
 yellow 'message:'
 echo ${MESSAGE}
 yellow 'branch:'
 echo ${BRANCH}
+green "Ready? 'no' or press ENTER"
 
 read input
 
