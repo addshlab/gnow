@@ -1,10 +1,9 @@
 #!/bin/bash
 
+# テキストカラー
 function green  { echo -e "\e[32m$*\e[m"; }
 function red { echo -e "\e[31m$*\e[m"; }
 function yellow { echo -e "\e[33m$*\e[m"; }
-
-MESSAGE=${1}
 
 GIT_STATUS=`git status -s`
 DATE=`date +'%Y-%m-%d %T'`
@@ -18,16 +17,17 @@ LATEST_TAG=`git tag | sed s/v//g | sort -t . -n -k1,1 -k2,2 -k3,3 | tail -n1`
 PATCH_VER=${LATEST_TAG##*.}
 PATCH_INCREMENT="${LATEST_TAG%.*}.$(( ${PATCH_VER} + 1 ))"
 
+# コミット処理
 function fast_commit {
     # コミットメッセージ引数が無い場合は日付とステータスをメッセージとする
-    if [ -z ${1} ]; then
+    if [ -z "${1}" ]; then
         MESSAGE="${DATE} ${GIT_STATUS}"
     else
         MESSAGE="${1}"
     fi
 
     # ローカルのブランチが存在しない初回pushとみられる場合はmasterにpushする
-    if [ -z ${BRANCH_EXIST} ]; then
+    if [ -z "${BRANCH_EXIST}" ]; then
         BRANCH=master
         yellow 'Initial Commit'
     fi
@@ -48,9 +48,7 @@ function fast_commit {
     fi
 } # function fast_commit end
 
-
- 
-
+# 使い方
 usage() {
     echo "Usage: $PROGNAME [OPTIONS] FILE"
     echo "  This script is ~."
@@ -65,6 +63,7 @@ usage() {
     exit 1
 }
 
+# 引数処理
 for OPT in "$@"
 do
     case $OPT in
@@ -90,16 +89,6 @@ do
             fi
             shift 2
             ;;
-        -b | --long-b)
-            if [[ -z "$2" ]] || [[ "$2" =~ ^-+ ]]; then
-                shift
-            else
-                shift 2
-            fi
-            ;;
-        -c | --long-c)
-            shift 1
-            ;;
         -- | -)
             shift 1
             param+=( "$@" )
@@ -109,23 +98,20 @@ do
             echo "$PROGNAME: illegal option -- '$(echo $1 | sed 's/^-*//')'" 1>&2
             exit 1
             ;;
-#        *)
-#            if [[ ! -z "$1" ]] && [[ ! "$1" =~ ^-+ ]]; then
-#                #param=( ${param[@]} "$1" )
-#                param+=( "$1" )
-#                shift 1
-#            fi
-#            ;;
+        *)
+            if [[ ! -z "$1" ]] && [[ ! "$1" =~ ^-+ ]]; then
+                #param=( ${param[@]} "$1" )
+                param+=( "$1" )
+                shift 1
+                fast_commit "$param"
+            fi
+            ;;
     esac
 done
 
+# パラメーターが指定されなかった場合
 if [ -z "$param" ]; then
-#    echo "$PROGNAME: too few arguments" 1>&2
-#    echo "Try '$PROGNAME --help' for more information." 1>&2
-    fast_commit "$param"
+    fast_commit
 fi
-
-#--------------------------------------------------
-
 
 exit
