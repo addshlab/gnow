@@ -14,46 +14,118 @@ BRANCH_EXIST=`git branch`
 # バージョン表示
 VERSION=`cat VERSION`
 
-while getopts vV OPT
+LATEST_TAG=`git tag | sed s/v//g | sort -t . -n -k1,1 -k2,2 -k3,3 | tail -n1`
+PATCH_VER=${LATEST_TAG##*.}
+PATCH_INCREMENT="${LATEST_TAG%.*}.$(( ${PATCH_VER} + 1 ))"
+
+function fast_commit {
+    # コミットメッセージ引数が無い場合は日付とステータスをメッセージとする
+    if [ -z ${1} ]; then
+        MESSAGE="${DATE} ${GIT_STATUS}"
+    else
+        MESSAGE="${1}"
+    fi
+
+    # ローカルのブランチが存在しない初回pushとみられる場合はmasterにpushする
+    if [ -z ${BRANCH_EXIST} ]; then
+        BRANCH=master
+        yellow 'Initial Commit'
+    fi
+
+    yellow 'message:'
+    echo ${MESSAGE}
+    yellow 'branch:'
+    echo ${BRANCH}
+    green "Ready? 'no' or press ENTER"
+
+    read input
+    if [ "${input}" = 'no' ] || [ "${input}" = 'NO' ] || [ "${input}" = 'n' ]; then
+        exit 0
+    else
+        git add -A
+        git commit -m "${MESSAGE}"
+        git push origin ${BRANCH}
+    fi
+} # function fast_commit end
+
+
+ 
+
+usage() {
+    echo "Usage: $PROGNAME [OPTIONS] FILE"
+    echo "  This script is ~."
+    echo
+    echo "Options:"
+    echo "  -h, --help"
+    echo "  -v, -V, --version"
+    echo "  -t, --tag [ARG]"
+    echo "  -b, --long-b [ARG]"
+    echo "  -c, --long-c"
+    echo
+    exit 1
+}
+
+for OPT in "$@"
 do
-  case $OPT in
-    "v" ) FLG_v="TRUE" ; VER_NUM="$VERSION" ;;
-    "V" ) FLG_v="TRUE" ; VER_NUM="$VERSION" ;;
-  esac
+    case $OPT in
+        -h | --help)
+            usage
+            exit 1
+            ;;
+        -v | -V |--version)
+            echo $VERSION
+            exit 1
+            ;;
+        -t | --tag)
+            if [[ -z "$2" ]] || [[ "$2" =~ ^-+ ]]; then
+                #echo "$PROGNAME: option requires an argument -- $1" 1>&2
+                green "Latest tag is ${LATEST_TAG}"
+                green "Patch version is ${PATCH_INCREMENT}"
+                green "If you don't specify a version, increment z in x.y.z."
+                exit 1
+            else
+                NEW_VER=$2
+                echo ${NEW_VER}
+                exit 1
+            fi
+            shift 2
+            ;;
+        -b | --long-b)
+            if [[ -z "$2" ]] || [[ "$2" =~ ^-+ ]]; then
+                shift
+            else
+                shift 2
+            fi
+            ;;
+        -c | --long-c)
+            shift 1
+            ;;
+        -- | -)
+            shift 1
+            param+=( "$@" )
+            break
+            ;;
+        -*)
+            echo "$PROGNAME: illegal option -- '$(echo $1 | sed 's/^-*//')'" 1>&2
+            exit 1
+            ;;
+#        *)
+#            if [[ ! -z "$1" ]] && [[ ! "$1" =~ ^-+ ]]; then
+#                #param=( ${param[@]} "$1" )
+#                param+=( "$1" )
+#                shift 1
+#            fi
+#            ;;
+    esac
 done
 
-if [ "${FLG_v}" = "TRUE" ]; then
-    echo ${VERSION}
-    exit 0
+if [ -z "$param" ]; then
+#    echo "$PROGNAME: too few arguments" 1>&2
+#    echo "Try '$PROGNAME --help' for more information." 1>&2
+    fast_commit "$param"
 fi
 
-# コミットメッセージ引数が無い場合は日付とステータスをメッセージとする
-if [ -z ${MESSAGE} ]; then
-    MESSAGE="${DATE} ${GIT_STATUS}"
-fi
+#--------------------------------------------------
 
-# ローカルのブランチが存在しない初回pushとみられる場合はmasterにpushする
-if [ -z ${BRANCH_EXIST} ]; then
-    BRANCH=master
-    yellow 'Initial Commit'
-fi
 
-yellow 'message:'
-echo ${MESSAGE}
-yellow 'branch:'
-echo ${BRANCH}
-green "Ready? 'no' or press ENTER"
-
-read input
-
-if [ "${input}" = 'no' ] || [ "${input}" = 'NO' ] || [ "${input}" = 'n' ]; then
-    exit 0
-else
-    git add -A
-
-    git commit -m "${MESSAGE}"
-
-    git push origin ${BRANCH}
-fi
-
-exit 0
+exit
