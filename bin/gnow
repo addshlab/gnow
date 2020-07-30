@@ -58,7 +58,7 @@ function fast_tag {
         if [ "${input}" = 'no' ] || [ "${input}" = 'NO' ] || [ "${input}" = 'n' ]; then
 	    exit 0
 	else
-	    git tag -a "${PATCH_INCREMENT}" -m "${PATCH_INCREMENT}"
+	    git tag -a "v${PATCH_INCREMENT}" -m "v${PATCH_INCREMENT}"
 	    git push origin --tags
         fi
     else
