@@ -13,10 +13,6 @@ BRANCH_EXIST=`git branch`
 # バージョン表示
 VERSION=`cat VERSION`
 
-LATEST_TAG=`git tag | sed s/v//g | sort -t . -n -k1,1 -k2,2 -k3,3 | tail -n1`
-PATCH_VER=${LATEST_TAG##*.}
-PATCH_INCREMENT="${LATEST_TAG%.*}.$(( ${PATCH_VER} + 1 ))"
-
 # コミット処理
 function fast_commit {
     # コミットメッセージ引数が無い場合は日付とステータスをメッセージとする
@@ -48,6 +44,37 @@ function fast_commit {
     fi
 } # function fast_commit end
 
+# タグ処理
+function fast_tag {
+    LATEST_TAG=`git tag | sed s/v//g | sort -t . -n -k1,1 -k2,2 -k3,3 | tail -n1`
+    PATCH_VER=${LATEST_TAG##*.}
+    PATCH_INCREMENT="${LATEST_TAG%.*}.$(( ${PATCH_VER} + 1 ))"
+    NEW_TAG=${1}
+    if [ -z ${NEW_TAG} ]; then
+        green "Latest tag is ${LATEST_TAG}"
+        green "Auto-incremented version is ${PATCH_INCREMENT}"
+        green "Ready? 'no' or press ENTER"
+	read input
+        if [ "${input}" = 'no' ] || [ "${input}" = 'NO' ] || [ "${input}" = 'n' ]; then
+	    exit 0
+	else
+	    git tag -a "${PATCH_INCREMENT}" -m "${PATCH_INCREMENT}"
+	    git push origin --tags
+        fi
+    else
+        green "Latest tag is ${LATEST_TAG}"
+        green "New tag is ${NEW_TAG}"
+        green "Ready? 'no' or press ENTER"
+	read input
+        if [ "${input}" = 'no' ] || [ "${input}" = 'NO' ] || [ "${input}" = 'n' ]; then
+	    exit 0
+	else
+	    git tag -a "${NEW_TAG}" -m "${NEW_TAG}"
+	    git push origin --tags
+        fi
+    fi
+} # function fast_tag end
+
 # 使い方
 usage() {
     echo "Usage: $PROGNAME [OPTIONS] FILE"
@@ -78,13 +105,10 @@ do
         -t | --tag)
             if [[ -z "$2" ]] || [[ "$2" =~ ^-+ ]]; then
                 #echo "$PROGNAME: option requires an argument -- $1" 1>&2
-                green "Latest tag is ${LATEST_TAG}"
-                green "Patch version is ${PATCH_INCREMENT}"
-                green "If you don't specify a version, increment z in x.y.z."
+		fast_tag
                 exit 1
             else
-                NEW_VER=$2
-                echo ${NEW_VER}
+		fast_tag $2
                 exit 1
             fi
             shift 2
