@@ -10,6 +10,7 @@ if [ ${CMD_EXIST} ]; then
 fi
 
 if [ -e "${DIR}/bin/gnow" ]; then
+    git config core.filemode false
     sudo ln -si ${DIR}/bin/gnow /usr/local/bin
     sudo chmod 777 ${DIR}/bin/gnow
     CMD_EXIST=`command -v gnow`
