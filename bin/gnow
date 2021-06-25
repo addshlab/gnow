@@ -37,15 +37,18 @@ function fast_commit {
   echo ${MESSAGE}
   yellow 'branch:'
   echo ${BRANCH}
-  green "Ready? 'no' or press ENTER"
+  green "Ready? [n/Y]:"
 
   read input
   if [ "${input}" = 'no' ] || [ "${input}" = 'NO' ] || [ "${input}" = 'n' ]; then
     exit 0
-  else
+  elif [ "${input}" = 'yes' ] || [ "${input}" = 'YES' ] || [ "${input}" = 'y' ]; then
     git add -A
     git commit -m "${MESSAGE}"
     git push origin ${BRANCH}
+  else
+    red 'Process aborted.'
+    exit 0
   fi
 } # function fast_commit end
 
@@ -58,24 +61,30 @@ function fast_tag {
   if [ -z ${NEW_TAG} ]; then
     green "Latest tag is ${LATEST_TAG}"
     green "Auto-incremented version is ${PATCH_INCREMENT}"
-    green "Ready? 'no' or press ENTER"
+    green "Ready? [n/Y]:"
     read input
     if [ "${input}" = 'no' ] || [ "${input}" = 'NO' ] || [ "${input}" = 'n' ]; then
       exit 0
-    else
+    elif [ "${input}" = 'yes' ] || [ "${input}" = 'YES' ] || [ "${input}" = 'y' ]; then
       git tag -a "v${PATCH_INCREMENT}" -m "v${PATCH_INCREMENT}"
       git push origin --tags
+    else
+      red 'Process aborted.'
+      exit 0
     fi
   else
     green "Latest tag is ${LATEST_TAG}"
     green "New tag is ${NEW_TAG}"
-    green "Ready? 'no' or press ENTER"
+    green "Ready? [n/Y]:"
     read input
     if [ "${input}" = 'no' ] || [ "${input}" = 'NO' ] || [ "${input}" = 'n' ]; then
       exit 0
-    else
+    elif [ "${input}" = 'yes' ] || [ "${input}" = 'YES' ] || [ "${input}" = 'y' ]; then
       git tag -a "${NEW_TAG}" -m "${NEW_TAG}"
       git push origin --tags
+    else
+      red 'Process aborted.'
+      exit 0
     fi
   fi
 } # function fast_tag end
