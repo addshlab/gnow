@@ -1,11 +1,16 @@
 #!/bin/bash
 
+# テキストカラー
+function green  { echo -e "\e[32m$*\e[m"; }
+function red { echo -e "\e[31m$*\e[m"; }
+function yellow { echo -e "\e[33m$*\e[m"; }
+
 DIR=$(cd $(dirname $0); pwd)
 
 CMD_EXIST=`command -v gnow`
 
 if [ ${CMD_EXIST} ]; then
-    echo "'gnow' command already exist."
+    red "'gnow' command already exist."
     exit 0
 fi
 
@@ -15,12 +20,12 @@ if [ -e "${DIR}/bin/gnow" ]; then
     sudo chmod 777 ${DIR}/bin/gnow
     CMD_EXIST=`command -v gnow`
     if [ ${CMD_EXIST} ]; then
-        echo "create 'gnow' command."
+        green "Create 'gnow' command."
     else
-        echo "'failed create 'gnow' command."
+        red "'Failed create 'gnow' command."
     fi
 else
-    echo "'gnow' file not found."
+    red "'gnow' file not found."
 fi
 
 exit 0
