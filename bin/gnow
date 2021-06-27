@@ -98,15 +98,13 @@ function fast_tag {
 
 # 使い方
 usage() {
-  echo "Usage: $PROGNAME [OPTIONS] FILE"
-  echo "  This script is ~."
+  green "gnow command :: git commit for now"
+  echo "This is the 'gnow' command to do a quick git commit and git push."
   echo
   echo "Options:"
-  echo "  -h, --help"
-  echo "  -v, -V, --version"
-  echo "  -t, --tag [ARG]"
-  echo "  -b, --long-b [ARG]"
-  echo "  -c, --long-c"
+  echo "  -h, --help :Show helps."
+  echo "  -v, -V, --version :Show version."
+  echo "  -t, --tag [ARG] :Add tag. If no argument, current version will be automatically incremented."
   echo
   exit 1
 }
