@@ -1,13 +1,15 @@
 #!/bin/bash
 
-# テキストカラー
+#------------------------------
+# Text Color
+#------------------------------
 function green  { echo -e "\e[32m$*\e[m"; }
 function red { echo -e "\e[31m$*\e[m"; }
 function yellow { echo -e "\e[33m$*\e[m"; }
 
-# test
-
-# gitリポジトリ存在確認
+#------------------------------
+# Confirm the existence of the Git repository.
+#------------------------------
 if [ `echo "$(git status -s 2>&1 > /dev/null | awk '{print $1}')'" | grep '^fatal'` ]; then
   red 'No git repository exists in this directory.'
 else
@@ -20,7 +22,9 @@ fi
 DATE=`date +'%Y-%m-%d %T'`
 VERSION=v1.0.1
 
-# コミット処理
+#------------------------------
+# Commit
+#------------------------------
 function fast_commit {
   if [ -z "`git status -s`" ]; then
     green 'Nothing to commit.'
@@ -28,6 +32,7 @@ function fast_commit {
   fi
 
   # コミットメッセージ引数が無い場合は日付とステータスをメッセージとする
+  # If there is no commit message argument, the date and status will be used as the message.
   if [ -z "${1}" ]; then
     MESSAGE="${DATE} ${GIT_STATUS}"
   else
@@ -35,6 +40,7 @@ function fast_commit {
   fi
 
   # ローカルのブランチが存在しない初回pushとみられる場合はmasterにpushする
+  # Push to master if it appears to be the first push where no local branch exists.
   if [ -z "${BRANCH_EXIST}" ]; then
     BRANCH=master
     yellow 'Initial Commit'
@@ -59,7 +65,9 @@ function fast_commit {
   fi
 } # function fast_commit end
 
-# タグ処理
+#------------------------------
+# Tags
+#------------------------------
 function fast_tag {
   LATEST_TAG=`git tag | sed s/v//g | sort -t . -n -k1,1 -k2,2 -k3,3 | tail -n1`
   PATCH_VER=${LATEST_TAG##*.}
@@ -96,7 +104,9 @@ function fast_tag {
   fi
 } # function fast_tag end
 
-# 使い方
+#------------------------------
+# How to use
+#------------------------------
 usage() {
   green "gnow command :: git commit for now"
   echo "This is the 'gnow' command to do a quick git commit and git push."
@@ -109,7 +119,9 @@ usage() {
   exit 1
 }
 
-# 引数処理
+#------------------------------
+# Command arguments
+#------------------------------
 for OPT in "$@"
 do
   case $OPT in
@@ -154,7 +166,9 @@ do
   esac
 done
 
-# パラメーターが指定されなかった場合
+#------------------------------
+# Run without any arguments
+#------------------------------
 if [ -z "$param" ]; then
   if [ -z $IS_REPO ]; then exit 1; fi
   fast_commit
