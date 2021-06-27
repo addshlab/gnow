@@ -23,7 +23,7 @@ VERSION=v1.0.1
 # コミット処理
 function fast_commit {
   if [ -z "`git status -s`" ]; then
-    green 'nothing to commit, working tree clean'
+    green 'Nothing to commit.'
     exit 0
   fi
 
