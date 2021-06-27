@@ -5,6 +5,8 @@ function green  { echo -e "\e[32m$*\e[m"; }
 function red { echo -e "\e[31m$*\e[m"; }
 function yellow { echo -e "\e[33m$*\e[m"; }
 
+# test
+
 # gitリポジトリ存在確認
 if [ `echo "$(git status -s 2>&1 > /dev/null | awk '{print $1}')'" | grep '^fatal'` ]; then
   red 'No git repository exists in this directory.'
@@ -20,6 +22,11 @@ VERSION=v1.0.1
 
 # コミット処理
 function fast_commit {
+  if [ -z "`git status -s`" ]; then
+    green 'nothing to commit, working tree clean'
+    exit 0
+  fi
+
   # コミットメッセージ引数が無い場合は日付とステータスをメッセージとする
   if [ -z "${1}" ]; then
     MESSAGE="${DATE} ${GIT_STATUS}"
