@@ -23,9 +23,65 @@ DATE=`date +'%Y-%m-%d %T'`
 VERSION=v1.0.1
 
 #------------------------------
+# Check git repository exists.
+#------------------------------
+function is_repo {
+  if [ -z $IS_REPO ]; then
+      exit 1;
+  fi
+}
+
+#------------------------------
 # Commit
 #------------------------------
 function fast_commit {
+  is_repo
+
+  if [ -z "`git status -s`" ]; then
+    green 'Nothing to commit.'
+    exit 0
+  fi
+
+  # コミットメッセージ引数が無い場合は日付とステータスをメッセージとする
+  # If there is no commit message argument, the date and status will be used as the message.
+  if [ -z "${1}" ]; then
+    MESSAGE="${DATE} ${GIT_STATUS}"
+  else
+    MESSAGE="${1}"
+  fi
+
+  # ローカルのブランチが存在しない初回pushとみられる場合はmasterにpushする
+  # Push to master if it appears to be the first push where no local branch exists.
+  if [ -z "${BRANCH_EXIST}" ]; then
+    BRANCH=master
+    yellow 'Initial Commit'
+  fi
+
+  yellow 'message:'
+  echo ${MESSAGE}
+  yellow 'branch:'
+  echo ${BRANCH}
+  green "Ready? [n/Y]:"
+
+  read input
+  if [ "${input}" = 'no' ] || [ "${input}" = 'NO' ] || [ "${input}" = 'n' ]; then
+    exit 0
+  elif [ "${input}" = 'yes' ] || [ "${input}" = 'YES' ] || [ "${input}" = 'y' ]; then
+    git add -A
+    git commit -m "${MESSAGE}"
+    green 'Commit done.'
+  else
+    red 'Process aborted.'
+    exit 0
+  fi
+} # fast_commit end
+
+#------------------------------
+# Tags
+#------------------------------
+function fast_push {
+  is_repo
+
   if [ -z "`git status -s`" ]; then
     green 'Nothing to commit.'
     exit 0
@@ -59,16 +115,19 @@ function fast_commit {
     git add -A
     git commit -m "${MESSAGE}"
     git push origin ${BRANCH}
+    green 'Commit and Push done.'
   else
     red 'Process aborted.'
     exit 0
   fi
-} # function fast_commit end
+} # fast_push end
 
 #------------------------------
 # Tags
 #------------------------------
 function fast_tag {
+  is_repo
+
   LATEST_TAG=`git tag | sed s/v//g | sort -t . -n -k1,1 -k2,2 -k3,3 | tail -n1`
   PATCH_VER=${LATEST_TAG##*.}
   PATCH_INCREMENT="${LATEST_TAG%.*}.$(( ${PATCH_VER} + 1 ))"
@@ -102,7 +161,7 @@ function fast_tag {
       exit 0
     fi
   fi
-} # function fast_tag end
+} # fast_tag end
 
 #------------------------------
 # How to use
@@ -133,10 +192,20 @@ do
       echo $VERSION
       exit 1
     ;;
-    -t | --tag)
-      if [ -z $IS_REPO ]; then exit 1; fi
+    -c | --commit)
       if [[ -z "$2" ]] || [[ "$2" =~ ^-+ ]]; then
-        #echo "$PROGNAME: option requires an argument -- $1" 1>&2
+        echo 'Only commits.'
+        fast_commit
+        exit 1
+      else
+        echo 'Only commits.'
+        fast_commit $2 @@push@@
+        exit 1
+      fi
+      shift 2 
+    ;;
+    -t | --tag)
+      if [[ -z "$2" ]] || [[ "$2" =~ ^-+ ]]; then
         fast_tag
         exit 1
       else
@@ -155,12 +224,10 @@ do
       exit 1
     ;;
     *)
-      if [ -z $IS_REPO ]; then exit 1; fi
       if [[ ! -z "$1" ]] && [[ ! "$1" =~ ^-+ ]]; then
-        #param=( ${param[@]} "$1" )
         param+=( "$1" )
         shift 1
-        fast_commit "$param"
+        fast_push "$param"
       fi
     ;;
   esac
@@ -170,8 +237,7 @@ done
 # Run without any arguments
 #------------------------------
 if [ -z "$param" ]; then
-  if [ -z $IS_REPO ]; then exit 1; fi
-  fast_commit
+  fast_push
 fi
 
 exit 0
