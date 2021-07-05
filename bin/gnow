@@ -38,7 +38,7 @@ function fast_commit {
   is_repo
 
   if [ -z "`git status -s`" ]; then
-    green 'Nothing to commit.'
+    green 'Nothing to stage.'
     exit 0
   fi
 
@@ -77,12 +77,12 @@ function fast_commit {
 } # fast_commit end
 
 #------------------------------
-# Tags
+# Push
 #------------------------------
 function fast_push {
   is_repo
 
-  if [ -z "`git status -s`" ]; then
+  if [ -z "`git log --pretty=format:"%H" origin/${BRANCH}..HEAD`" ]; then
     green 'Nothing to commit.'
     exit 0
   fi
