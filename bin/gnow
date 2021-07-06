@@ -38,7 +38,7 @@ function has_repo {
 function fast_commit {
   has_repo
 
-  green_white 'COMMIT'
+  green_white ' COMMIT '
 
   if [ -z "`git status -s`" ]; then
     green 'Nothing to stage.'
@@ -72,7 +72,7 @@ function fast_commit {
   elif [ "${input}" = 'yes' ] || [ "${input}" = 'YES' ] || [ "${input}" = 'y' ]; then
     git add -A
     git commit -m "${MESSAGE}"
-    green 'Commit done.'
+    green 'Commit done. ✔'
   else
     red 'Process aborted.'
     exit 0
@@ -98,7 +98,8 @@ function fast_push {
     yellow 'Nothing to commit.'
     exit 0
   fi
-  green_white 'PUSH'
+
+  green_white ' PUSH '
 
   # ローカルのブランチが存在しない初回pushとみられる場合はmasterにpushする
   # Push to master if it appears to be the first push where no local branch exists.
@@ -117,7 +118,7 @@ function fast_push {
     exit 0
   elif [ "${input}" = 'yes' ] || [ "${input}" = 'YES' ] || [ "${input}" = 'y' ]; then
     git push origin ${BRANCH}
-    green 'Push done.'
+    green 'Push done. ✔'
   else
     red 'Process aborted.'
     exit 0
