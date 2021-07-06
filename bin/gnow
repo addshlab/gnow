@@ -6,6 +6,7 @@
 function green  { echo -e "\e[32m$*\e[m"; }
 function red { echo -e "\e[31m$*\e[m"; }
 function yellow { echo -e "\e[33m$*\e[m"; }
+function green_white { echo -e "\e[32;47m$*\e[m"; }
 
 #------------------------------
 # Confirm the existence of the Git repository.
@@ -16,7 +17,7 @@ else
   GIT_STATUS=`git status -s`
   BRANCH=`git rev-parse --abbrev-ref HEAD`
   BRANCH_EXIST=`git branch`
-  IS_REPO=1
+  REPO_EXIST=1
 fi
 
 DATE=`date +'%Y-%m-%d %T'`
@@ -25,8 +26,8 @@ VERSION=v1.0.1
 #------------------------------
 # Check git repository exists.
 #------------------------------
-function is_repo {
-  if [ -z $IS_REPO ]; then
+function has_repo {
+  if [ -z $REPO_EXIST ]; then
       exit 1;
   fi
 }
@@ -35,7 +36,9 @@ function is_repo {
 # Commit
 #------------------------------
 function fast_commit {
-  is_repo
+  has_repo
+
+  green_white 'COMMIT'
 
   if [ -z "`git status -s`" ]; then
     green 'Nothing to stage.'
@@ -80,8 +83,18 @@ function fast_commit {
 # Push
 #------------------------------
 function fast_push {
-  is_repo
+  has_repo
 
+  green_white 'PUSH'
+
+  # ステージングにファイルが
+  if [ -z "`git status -s`" ]; then
+    green 'Nothing to stage.'
+  else
+    fast_commit "${1}"
+  fi
+
+  # コミット済みファイルが
   if [ -z "`git log --pretty=format:"%H" origin/${BRANCH}..HEAD`" ]; then
     green 'Nothing to commit.'
     exit 0
@@ -89,11 +102,11 @@ function fast_push {
 
   # コミットメッセージ引数が無い場合は日付とステータスをメッセージとする
   # If there is no commit message argument, the date and status will be used as the message.
-  if [ -z "${1}" ]; then
-    MESSAGE="${DATE} ${GIT_STATUS}"
-  else
-    MESSAGE="${1}"
-  fi
+#  if [ -z "${1}" ]; then
+#    MESSAGE="${DATE} ${GIT_STATUS}"
+#  else
+#    MESSAGE="${1}"
+#  fi
 
   # ローカルのブランチが存在しない初回pushとみられる場合はmasterにpushする
   # Push to master if it appears to be the first push where no local branch exists.
@@ -102,8 +115,8 @@ function fast_push {
     yellow 'Initial Commit'
   fi
 
-  yellow 'message:'
-  echo ${MESSAGE}
+#  yellow 'message:'
+#  echo ${MESSAGE}
   yellow 'branch:'
   echo ${BRANCH}
   green "Ready? [n/Y]:"
@@ -112,8 +125,8 @@ function fast_push {
   if [ "${input}" = 'no' ] || [ "${input}" = 'NO' ] || [ "${input}" = 'n' ]; then
     exit 0
   elif [ "${input}" = 'yes' ] || [ "${input}" = 'YES' ] || [ "${input}" = 'y' ]; then
-    git add -A
-    git commit -m "${MESSAGE}"
+#    git add -A
+#    git commit -m "${MESSAGE}"
     git push origin ${BRANCH}
     green 'Commit and Push done.'
   else
@@ -126,7 +139,7 @@ function fast_push {
 # Tags
 #------------------------------
 function fast_tag {
-  is_repo
+  has_repo
 
   LATEST_TAG=`git tag | sed s/v//g | sort -t . -n -k1,1 -k2,2 -k3,3 | tail -n1`
   PATCH_VER=${LATEST_TAG##*.}
@@ -194,11 +207,9 @@ do
     ;;
     -c | --commit)
       if [[ -z "$2" ]] || [[ "$2" =~ ^-+ ]]; then
-        echo 'Only commits.'
         fast_commit
         exit 1
       else
-        echo 'Only commits.'
         fast_commit $2 @@push@@
         exit 1
       fi
