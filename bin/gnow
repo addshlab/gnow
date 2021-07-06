@@ -64,7 +64,7 @@ function fast_commit {
   echo ${MESSAGE}
   yellow 'branch:'
   echo ${BRANCH}
-  green "Ready? [n/Y]:"
+  echo "Ready? [n/Y]:"
 
   read input
   if [ "${input}" = 'no' ] || [ "${input}" = 'NO' ] || [ "${input}" = 'n' ]; then
@@ -87,14 +87,14 @@ function fast_push {
 
   # ステージングにファイルが存在するか
   if [ -z "`git status -s`" ]; then
-    green 'Nothing to stage.'
+    yellow 'Nothing to stage.'
   else
     fast_commit "${1}"
   fi
 
   # コミット済みファイルが存在するか
   if [ -z "`git log --pretty=format:"%H" origin/${BRANCH}..HEAD`" ]; then
-    green 'Nothing to commit.'
+    yellow 'Nothing to commit.'
     exit 0
   fi
   green_white 'PUSH'
@@ -116,9 +116,9 @@ function fast_push {
 
 #  yellow 'message:'
 #  echo ${MESSAGE}
-  yellow 'Push your commits.'
-  echo ${BRANCH}
-  green "Ready? [n/Y]:"
+  echo 'Push your commits.'
+  echo 'branch: '${BRANCH}
+  echo "Ready? [n/Y]:"
 
   read input
   if [ "${input}" = 'no' ] || [ "${input}" = 'NO' ] || [ "${input}" = 'n' ]; then
