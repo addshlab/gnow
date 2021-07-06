@@ -41,7 +41,7 @@ function fast_commit {
   green_white ' COMMIT '
 
   if [ -z "`git status -s`" ]; then
-    green 'Nothing to stage.'
+    yellow 'Nothing to stage.'
     exit 0
   fi
 
