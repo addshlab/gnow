@@ -89,6 +89,7 @@ function fast_push {
   if [ -z "`git status -s`" ]; then
     yellow 'Nothing to stage.'
   else
+    sleep 0.5
     fast_commit "${1}"
   fi
 
@@ -108,7 +109,7 @@ function fast_push {
 
   echo 'Push your commits.'
   yellow 'branch'
-  yellow ' ┗ '${BRANCH}
+  echo ' ┗ '${BRANCH}
   echo "Ready? [n/Y]:"
 
   read input
