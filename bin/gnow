@@ -85,20 +85,19 @@ function fast_commit {
 function fast_push {
   has_repo
 
-  green_white 'PUSH'
-
-  # ステージングにファイルが
+  # ステージングにファイルが存在するか
   if [ -z "`git status -s`" ]; then
     green 'Nothing to stage.'
   else
     fast_commit "${1}"
   fi
 
-  # コミット済みファイルが
+  # コミット済みファイルが存在するか
   if [ -z "`git log --pretty=format:"%H" origin/${BRANCH}..HEAD`" ]; then
     green 'Nothing to commit.'
     exit 0
   fi
+  green_white 'PUSH'
 
   # コミットメッセージ引数が無い場合は日付とステータスをメッセージとする
   # If there is no commit message argument, the date and status will be used as the message.
@@ -117,7 +116,7 @@ function fast_push {
 
 #  yellow 'message:'
 #  echo ${MESSAGE}
-  yellow 'branch:'
+  yellow 'Push your commits.'
   echo ${BRANCH}
   green "Ready? [n/Y]:"
 
@@ -128,7 +127,7 @@ function fast_push {
 #    git add -A
 #    git commit -m "${MESSAGE}"
     git push origin ${BRANCH}
-    green 'Commit and Push done.'
+    green 'Push done.'
   else
     red 'Process aborted.'
     exit 0
