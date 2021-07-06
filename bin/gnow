@@ -60,10 +60,10 @@ function fast_commit {
     yellow 'Initial Commit'
   fi
 
-  yellow 'message:'
-  echo ${MESSAGE}
-  yellow 'branch:'
-  echo ${BRANCH}
+  yellow 'message'
+  echo ' ┗ '${MESSAGE}
+  yellow 'branch'
+  echo ' ┗ '${BRANCH}
   echo "Ready? [n/Y]:"
 
   read input
@@ -107,8 +107,8 @@ function fast_push {
   fi
 
   echo 'Push your commits.'
-  yellow 'branch:'
-  yellow ${BRANCH}
+  yellow 'branch'
+  yellow ' ┗ '${BRANCH}
   echo "Ready? [n/Y]:"
 
   read input
