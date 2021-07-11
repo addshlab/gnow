@@ -6,8 +6,7 @@ import subprocess
 class ConditionalClass:
   #def __init__(self):
 
-  def repository_exists(self):
-    command    = "git status -s 2>&1 > /dev/null | awk '{print $1}'"
+  def do_command(self,command):
     proc = subprocess.Popen(
       command,
       shell  = True,
@@ -16,9 +15,33 @@ class ConditionalClass:
       stderr = subprocess.PIPE)
     stdout_data, stderr_data = proc.communicate()
     
-    if stdout_data.decode() == '':
-      print('ok')
+    return stdout_data.decode()
+
+  def repository_exists(self):
+    command    = "git status -s 2>&1 > /dev/null | awk '{print $1}'"
+    if self.do_command(command) == '':
       return 1
     else:
-      print('ng')
       return 0
+
+  def stage_exists(self):
+    command = "git status -s"
+    if self.do_command(command) == '':
+      return 0
+    else:
+      return 1
+
+  def get_git_status(self):
+    command = "git status -s"
+    status  = self.do_command(command)
+    return status
+
+  def get_git_branch(self):
+    command = "git rev-parse --abbrev-ref HEAD"
+
+  def branch_exists(self):
+    command = "git branch"
+
+
+
+

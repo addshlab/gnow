@@ -8,19 +8,14 @@ Color = colorClass.ColorClass()
 from module import conditionalClass
 Conditional = conditionalClass.ConditionalClass()
 
-if Conditional.repository_exists() == 1:
-  Color.set('green', 'arugana')
+# Import main class.
+from module import mainClass
+Main = mainClass.MainClass()
+
+
+
+if Conditional.repository_exists() == 0:
+  Color.set('No git repository exists in this directory.', 'red', 'white')
 else:
-  Color.set('red', 'No git repository exists in this directory.')
-  return 0
-
-#if [ `echo "$(git status -s 2>&1 > /dev/null | awk '{print $1}')'" | grep '^fatal'` ]; then
-#  red 'No git repository exists in this directory.'
-#else
-#  GIT_STATUS=`git status -s`
-#  BRANCH=`git rev-parse --abbrev-ref HEAD`
-#  BRANCH_EXIST=`git branch`
-#  REPO_EXIST=1
-#fi
-
-
+  #Color.set('green', 'arugana')
+  Main.fast_commit()
