@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import sys
 
 # Import text color class.
 from module import colorClass
@@ -18,4 +19,9 @@ if Conditional.repository_exists() == 0:
   Color.set('No git repository exists in this directory.', 'red', 'white')
 else:
   #Color.set('green', 'arugana')
-  Main.fast_commit()
+  if (len(sys.argv)<2):
+    Main.fast_commit()
+  else:
+    Main.fast_commit(sys.argv[1])
+
+    

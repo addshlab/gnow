@@ -41,6 +41,8 @@ class ConditionalClass:
 
   def branch_exists(self):
     command = "git branch"
+    branch  = self.do_command(command)
+    return branch
 
 
 

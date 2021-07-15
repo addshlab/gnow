@@ -3,11 +3,11 @@ class ColorClass:
     self.colors = {
       'red'    : '\033[31',
       'green'  : '\033[32',
-      'yellow' : '\033[33'
+      'yellow' : '\033[33',
     }
 
     self.backgrounds = {
-      'white' : ';47'
+      'white' : ';47',
     }
 
     self.end    = '\033[0m'
