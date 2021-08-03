@@ -38,11 +38,21 @@ class ConditionalClass:
 
   def get_git_branch(self):
     command = "git rev-parse --abbrev-ref HEAD"
+    branch  = self.do_command(command)
+    return branch
 
   def branch_exists(self):
     command = "git branch"
     branch  = self.do_command(command)
     return branch
+
+  def commit_exists(self):
+    command = 'git log --pretty=format:"%H" origin/' + self.get_git_branch().rstrip('\r\n') + '..HEAD'
+    commit  = self.do_command(command)
+    return commit
+
+
+
 
 
 

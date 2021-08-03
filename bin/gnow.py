@@ -22,6 +22,7 @@ else:
   if (len(sys.argv)<2):
     Main.fast_commit()
   else:
-    Main.fast_commit(sys.argv[1])
+#    Main.fast_commit(sys.argv[1])
+    Main.fast_push(sys.argv[1])
 
     
