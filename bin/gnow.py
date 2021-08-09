@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import sys
+import re
 
 # Import text color class.
 from module import colorClass
@@ -13,16 +14,60 @@ Conditional = conditionalClass.ConditionalClass()
 from module import mainClass
 Main = mainClass.MainClass()
 
+#------------------------------
+# Command arguments
+#------------------------------
 
+if len(sys.argv) >= 2:
+    arg1 = sys.argv[1]
+else:
+    arg1 = 0
+if len(sys.argv) >= 3:
+    arg2 = sys.argv[2]
+else:
+    arg2 = 0
+if len(sys.argv) >= 4:
+    arg3 = sys.argv[3]
+else:
+    arg3 = 0
 
 if Conditional.repository_exists() == 0:
-  Color.set('No git repository exists in this directory.', 'red', 'white')
-else:
-  #Color.set('green', 'arugana')
-  if (len(sys.argv)<2):
-    Main.fast_commit()
-  else:
-#    Main.fast_commit(sys.argv[1])
-    Main.fast_push(sys.argv[1])
+    Color.set(' No git repository exists in this directory. ', 'red', 'white')
+    exit()
 
-    
+if __name__ == '__main__':
+    #Color.set('green', 'arugana')
+    # Help
+    if arg1 == '-h' or arg1 == '--help':
+        Main.usage()
+        exit()
+    # Version
+    elif arg1 == '-v' or arg1 == '-V' or arg1 == '--version':
+        print('0.0.1')
+        exit()
+    # Commit only
+    elif arg1 == '-c' or arg1 == '--commit':
+        if arg2 == 0 or re.compile('^-.+').search(arg2):
+            Main.fast_commit()
+        else:
+            Main.fast_commit(arg2)
+    # Tagging
+    elif arg1 == '-t' or arg1 == '--tag':
+        if arg2 == 0 or re.compile('^-.+').search(arg2):
+            Main.fast_tag()
+        else:
+            Main.fast_tag(arg2)
+    elif arg1 == '-' or arg1 == '--':
+        Color.set("Illegal option: Only '-' or '--'",'red')
+        exit()
+    # Undefined option
+    elif arg1 != 0 and re.compile('^-.*').search(arg1):
+        Color.set("Illegal option: Undefined option '" + arg1 + "'",'red')
+    # No arguments
+    elif arg1 != 0 and re.compile('^(?!-.+)').search(arg1):
+        print('no arguments')
+    # Without any arguments
+    elif arg1 == 0:
+        Main.fast_push()
+    else:
+        exit()
