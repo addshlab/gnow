@@ -70,10 +70,10 @@ class ConditionalClass:
         result  = self.do_command(command)
         return result
 
-
-    
-
-
+    def do_git_push(self, branch = 0):
+        command = 'git push origin ' + branch
+        push    = self.do_command(command)
+        return push
 
 
 

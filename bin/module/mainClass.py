@@ -56,19 +56,20 @@ class MainClass:
     # Push
     #------------------------------
     def fast_push(self, input_message = ''):
-        Color.set(' PUSH ', 'green', 'white')
 
         # ステージングにファイルが存在するか
         if Conditional.get_git_status() == 0:
             Color.set('Nothing to stage.', 'yellow')
         else:
-            Color.set('File exists to stage.', 'yellow')
-            time.sleep(2)
+            Color.set('File exists to stage. Please commit!', 'yellow')
             self.fast_commit(input_message)
 
         # コミット済みファイルが存在するか
         if Conditional.commit_exists() == 0:
-            Color.set('Nothing to commit.', 'yellow')
+            Color.set('No files committed.', 'red')
+            exit()
+
+        Color.set(' PUSH ', 'green', 'white')
 
         # ローカルのブランチが存在しない初回pushとみられる場合はmasterにpushする
         if Conditional.branch_exists == 0:
@@ -86,7 +87,7 @@ class MainClass:
             return 0
         elif read == 'yes' or read == 'YES' or read == 'y' or read == 'Y':
             print('yes')
-            push = Conditional.do_command("git push origin " + branch)
+            push = Conditional.do_git_push(branch)
             print(push)
             Color.set('Push done. ✔', 'green')
         else:
