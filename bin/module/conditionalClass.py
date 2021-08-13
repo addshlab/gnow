@@ -32,8 +32,8 @@ class ConditionalClass:
 
     def get_git_status(self):
         command = "git status -s"
-        status  = self.do_command(command).replace('\n','')
-        return status
+        status  = self.do_command(command)
+        return status.replace('\n', '')
 
     def get_git_branch(self):
         command = "git rev-parse --abbrev-ref HEAD"
