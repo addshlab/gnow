@@ -58,6 +58,7 @@ class MainClass:
     def fast_push(self, input_message = ''):
 
         # ステージングにファイルが存在するか
+        print(Conditional.get_git_status())
         if Conditional.get_git_status() == 0:
             Color.set('Nothing to stage.', 'yellow')
         else:

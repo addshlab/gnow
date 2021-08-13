@@ -32,7 +32,7 @@ class ConditionalClass:
 
     def get_git_status(self):
         command = "git status -s"
-        status  = self.do_command(command)
+        status  = self.do_command(command).replace('\n','')
         return status
 
     def get_git_branch(self):
