@@ -24,7 +24,8 @@ class MainClass:
         # コミットメッセージ引数が無い場合は日付とステータスをメッセージとする
         # If there is no commit message argument, the date and status will be used as the message.
         if input_message == '':
-            message = str(datetime.datetime.today()) + '\n' + Conditional.get_git_status()
+            now     = str(datetime.datetime.today())
+            message = Conditional.format_status(Conditional.get_git_status())
         else:
             message = input_message
 
@@ -36,7 +37,7 @@ class MainClass:
         else:
             branch = Conditional.branch_exists()
 
-        Color.set('mesage', 'yellow')
+        Color.set('message', 'yellow')
         print (' ┗ ' + message)
         Color.set('branch', 'yellow')
         print (' ┗ ' + branch)
@@ -56,17 +57,16 @@ class MainClass:
     # Push
     #------------------------------
     def fast_push(self, input_message = ''):
-        #print(Conditional.get_git_status())
         # ステージングにファイルが存在するか
-        if Conditional.get_git_status() == 0:
+        if Conditional.get_git_status() is None:
             Color.set('Nothing to stage.', 'yellow')
         else:
-            Color.set('File exists to stage. Please commit!', 'yellow')
+            Color.set("File exists to stage. Let's commit to these!", 'yellow')
             self.fast_commit(input_message)
 
         # コミット済みファイルが存在するか
-        if Conditional.commit_exists() == 0:
-            Color.set('No files committed.', 'red')
+        if Conditional.commit_exists() is None:
+            Color.set('No files committed.', 'yellow')
             exit()
 
         Color.set(' PUSH ', 'green', 'white')

@@ -33,7 +33,10 @@ class ConditionalClass:
     def get_git_status(self):
         command = "git status -s"
         status  = self.do_command(command)
-        return status.replace('\n', '')
+        if not status:
+            return None
+        else:
+            return status
 
     def get_git_branch(self):
         command = "git rev-parse --abbrev-ref HEAD"
@@ -48,7 +51,10 @@ class ConditionalClass:
     def commit_exists(self):
         command = 'git log --pretty=format:"%H" origin/' + self.get_git_branch().rstrip('\r\n') + '..HEAD'
         commit  = self.do_command(command)
-        return commit
+        if not commit:
+            return None
+        else:
+            return commit
 
     def get_latest_tag(self):
         command = 'git tag | sed s/v//g | sort -t . -n -k1,1 -k2,2 -k3,3 | tail -n1'
@@ -65,15 +71,31 @@ class ConditionalClass:
         result  = self.do_command(command)
         return result
 
-    def do_git_commit(self, message = 0):
-        command = 'git commit -m ' + message 
+    def do_git_commit(self, message = ''):
+        message = message.replace('\n','')
+        command = "git commit -m '" + message + "'"
         result  = self.do_command(command)
         return result
 
-    def do_git_push(self, branch = 0):
+    def do_git_push(self, branch = 'main'):
         command = 'git push origin ' + branch
         push    = self.do_command(command)
         return push
+
+    def format_status(self, status = ''):
+        format_dict = {
+            'M  ':'Updated ',
+            'A  ':'Added ',
+            'D  ':'Deleted ',
+            'R  ':'Renamed ',
+            'C  ':'Copied '
+        }
+        for word, read in format_dict.items():
+            status = status.replace(word, read)
+        return status.replace('\n', ', ').strip(', ')
+
+
+
 
 
 

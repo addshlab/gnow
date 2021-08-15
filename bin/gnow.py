@@ -65,7 +65,7 @@ if __name__ == '__main__':
         Color.set("Illegal option: Undefined option '" + arg1 + "'",'red')
     # No arguments
     elif arg1 != 0 and re.compile('^(?!-.+)').search(arg1):
-        print('no arguments')
+        Main.fast_push(arg1)
     # Without any arguments
     elif arg1 == 0:
         Main.fast_push()
