@@ -20,7 +20,14 @@ class MainClass:
 
         if Conditional.stage_exists() == 0:
             Color.set('Nothing to stage.', 'yellow')
-
+            exit()
+        else:
+            read = input('Add a file to the stage? [n/Y]')
+            if read == 'no' or read == 'NO' or read == 'n' or read == 'N':
+                exit()
+            elif read == 'yes' or read == 'YES' or read == 'y' or read == 'Y':
+                Conditional.do_git_add()
+ 
         # コミットメッセージ引数が無い場合は日付とステータスをメッセージとする
         # If there is no commit message argument, the date and status will be used as the message.
         if input_message == '':
@@ -44,14 +51,14 @@ class MainClass:
 
         read = input('Ready? [n/Y]')
         if read == 'no' or read == 'NO' or read == 'n' or read == 'N':
-            return 0
+            exit()
         elif read == 'yes' or read == 'YES' or read == 'y' or read == 'Y':
             Conditional.do_git_add()
             Conditional.do_git_commit(message)
             Color.set('Commit done. ✔', 'green')
         else:
             Color.set('Process aborted.', 'red')
-            return 0
+            exit()
 
     #------------------------------
     # Push
@@ -84,15 +91,13 @@ class MainClass:
 
         read = input('Ready? [n/Y]')
         if read == 'no' or read == 'NO' or read == 'n' or read == 'N':
-            return 0
+            exit()
         elif read == 'yes' or read == 'YES' or read == 'y' or read == 'Y':
-            print('yes')
             push = Conditional.do_git_push(branch)
-            print(push)
             Color.set('Push done. ✔', 'green')
         else:
             Color.set('Process aborted.', 'red')
-            return 0
+            exit()
 
     #------------------------------
     # Tags
