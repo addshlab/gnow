@@ -57,6 +57,9 @@ if __name__ == '__main__':
             Main.fast_tag()
         else:
             Main.fast_tag(arg2)
+    # Status
+    elif arg1 == '-s' or arg1 == '--status':
+        Conditional.status()
     elif arg1 == '-' or arg1 == '--':
         Color.set("Illegal option: Only '-' or '--'",'red')
         exit()

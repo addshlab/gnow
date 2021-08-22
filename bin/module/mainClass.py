@@ -13,21 +13,32 @@ class MainClass:
     #def __init(selft):
 
     #------------------------------
+    # Add
+    #------------------------------
+    def fast_add(self):
+        Color.set(' ADD ', 'green', 'white')
+        read = input('Add a file to the index? [n/Y]')
+        if read == 'no' or read == 'NO' or read == 'n' or read == 'N':
+            print('No files add to index.')
+        elif read == 'yes' or read == 'YES' or read == 'y' or read == 'Y':
+            Conditional.do_git_add()
+            Color.set('Staging done. ✔', 'green')
+        else:
+            Conditional.do_git_add()
+            Color.set('Staging done. ✔', 'green')
+
+    #------------------------------
     # Commit
     #------------------------------
     def fast_commit(self, input_message = ''):
         Color.set(' COMMIT ', 'green', 'white')
 
-        if Conditional.stage_exists() == 0:
-            Color.set('Nothing to stage.', 'yellow')
-            exit()
+        if Conditional.is_change('workingtree') == False:
+            Color.set('Nothing to working tree.', 'green')
         else:
-            read = input('Add a file to the stage? [n/Y]')
-            if read == 'no' or read == 'NO' or read == 'n' or read == 'N':
-                exit()
-            elif read == 'yes' or read == 'YES' or read == 'y' or read == 'Y':
-                Conditional.do_git_add()
- 
+            Color.set('File exists to working tree.', 'yellow')
+            self.fast_add()
+
         # コミットメッセージ引数が無い場合は日付とステータスをメッセージとする
         # If there is no commit message argument, the date and status will be used as the message.
         if input_message == '':
@@ -53,26 +64,33 @@ class MainClass:
         if read == 'no' or read == 'NO' or read == 'n' or read == 'N':
             exit()
         elif read == 'yes' or read == 'YES' or read == 'y' or read == 'Y':
-            Conditional.do_git_add()
             Conditional.do_git_commit(message)
             Color.set('Commit done. ✔', 'green')
         else:
-            Color.set('Process aborted.', 'red')
-            exit()
+            Conditional.do_git_commit(message)
+            Color.set('Commit done. ✔', 'green')
 
     #------------------------------
     # Push
     #------------------------------
     def fast_push(self, input_message = ''):
-        # ステージングにファイルが存在するか
-        if Conditional.get_git_status() is None:
-            Color.set('Nothing to stage.', 'yellow')
+        Conditional.status()
+        # Check any file exists in the working tree.
+        if Conditional.is_change('workingtree') == False:
+            Color.set('Nothing to index.', 'yellow')
         else:
-            Color.set("File exists to stage. Let's commit to these!", 'yellow')
+            Color.set('File exists to working tree.', 'yellow')
+            self.fast_add()
+        # Check any file exists in the index. 
+        if Conditional.is_change('index') == False:
+            Color.set('Nothing to working tree.', 'yellow')
+        else:
+            Color.set("File exists to index. Let's commit to these!", 'yellow')
             self.fast_commit(input_message)
 
         # コミット済みファイルが存在するか
-        if Conditional.commit_exists() is None:
+        # Check any file exists in the index. 
+        if Conditional.commit_exists() == False:
             Color.set('No files committed.', 'yellow')
             exit()
 
@@ -96,7 +114,8 @@ class MainClass:
             push = Conditional.do_git_push(branch)
             Color.set('Push done. ✔', 'green')
         else:
-            Color.set('Process aborted.', 'red')
+            push = Conditional.do_git_push(branch)
+            Color.set('Push done. ✔', 'green')
             exit()
 
     #------------------------------

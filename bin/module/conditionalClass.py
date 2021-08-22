@@ -1,4 +1,9 @@
 import subprocess
+
+# Import text color class.
+from module import colorClass
+Color = colorClass.ColorClass()
+
 #------------------------------
 # Confirm the existence of the Git repository.
 #------------------------------
@@ -26,17 +31,41 @@ class ConditionalClass:
     def stage_exists(self):
         command = "git status -s"
         if self.do_command(command) == '':
-            return 0
+            return False
         else:
-            return 1
+            return True
 
     def get_git_status(self):
         command = "git status -s"
         status  = self.do_command(command)
         if not status:
-            return None
+            return ''
         else:
             return status
+
+    def is_change(self, area=''):
+        workingtree = ''
+        index       = ''
+        if self.get_git_status() == False:
+            return False
+        status = self.get_git_status().split('\n')
+        for item in status:
+            if item:
+                index       = index + item.rsplit(' ')[0]
+                workingtree = workingtree + item.rsplit(' ')[1]
+
+        if area == 'index':
+            if index:
+                return True
+            else:
+                return False
+        elif area == 'workingtree':
+            if workingtree:
+                return True
+            else:
+                return False
+        else:
+            return False
 
     def get_git_branch(self):
         command = "git rev-parse --abbrev-ref HEAD"
@@ -52,7 +81,7 @@ class ConditionalClass:
         command = 'git log --pretty=format:"%H" origin/' + self.get_git_branch().rstrip('\r\n') + '..HEAD'
         commit  = self.do_command(command)
         if not commit:
-            return None
+            return False
         else:
             return commit
 
@@ -82,6 +111,62 @@ class ConditionalClass:
         push    = self.do_command(command)
         return push
 
+    def status(self, status = ''):
+        index_i       = 0
+        workingtree_i = 0
+        status = self.get_git_status()
+        status_dict = {
+            'M  ':'i.Updated ',
+            'A  ':'i.Added ',
+            'D  ':'i.Deleted ',
+            'R  ':'i.Renamed ',
+            'C  ':'i.Copied ',
+            ' M ':'w.Updated ',
+            ' A ':'w.Added ',
+            ' D ':'w.Deleted ',
+            ' R ':'w.Renamed ',
+            ' C ':'w.Copied ',
+            '?? ':'o.Untracked ',
+            '!! ':'o.Ignored '
+        }
+        for word, read in status_dict.items():
+            status = status.replace(word, read)
+        status_list = status.split('\n')
+        del status_list[-1]
+        # Border between status display.
+        if not status_list:
+            max_file_name = 1
+        else:
+            max_file_name = len(max((x for x in status_list), key=len))
+        if max_file_name <= 14:
+            border = '-' * 14
+        else:
+            border = '-' * ( max_file_name + 1)
+
+        print(border)
+        Color.set(' Index ', 'white', 'green')
+        it = iter(status_list)
+        for item in status_list:
+            if item.startswith('i.'):
+                print(' - ' + item.strip('i.'))
+                index_i += 1
+        if index_i == 0:
+            print(' - No files.')
+
+        Color.set(' Working tree ', 'white', 'red')
+        for item in status_list:
+            if item.startswith('w.') or item.startswith('o.'):
+                if item.startswith('w.'):
+                    print(' - ' + item.strip('w.'))
+                    workingtree_i += 1
+                if item.startswith('o.'):
+                    print(' - ', end='')
+                    Color.set(item.strip('o.'), 'red')
+                    workingtree_i += 1
+        if workingtree_i == 0:
+            print(' - No files.')
+        print(border)
+
     def format_status(self, status = ''):
         format_dict = {
             'M  ':'Updated ',
@@ -93,9 +178,3 @@ class ConditionalClass:
         for word, read in format_dict.items():
             status = status.replace(word, read)
         return status.replace('\n', ', ').strip(', ')
-
-
-
-
-
-
