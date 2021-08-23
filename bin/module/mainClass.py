@@ -17,15 +17,19 @@ class MainClass:
     #------------------------------
     def fast_add(self):
         Color.set(' ADD ', 'green', 'white')
-        read = input('Add a file to the index? [n/Y]')
-        if read == 'no' or read == 'NO' or read == 'n' or read == 'N':
-            print('No files add to index.')
-        elif read == 'yes' or read == 'YES' or read == 'y' or read == 'Y':
-            Conditional.do_git_add()
-            Color.set('Staging done. ✔', 'green')
-        else:
-            Conditional.do_git_add()
-            Color.set('Staging done. ✔', 'green')
+        try:
+            read = input('Add a file to the index? [n/Y]')
+            if read == 'no' or read == 'NO' or read == 'n' or read == 'N':
+                print('No files add to index.')
+            elif read == 'yes' or read == 'YES' or read == 'y' or read == 'Y':
+                Conditional.do_git_add()
+                Color.set('Staging done. ✔', 'green')
+            else:
+                Conditional.do_git_add()
+                Color.set('Staging done. ✔', 'green')
+        except (KeyboardInterrupt) as e:
+            print()
+            exit()
 
     #------------------------------
     # Commit
@@ -60,15 +64,19 @@ class MainClass:
         Color.set('branch', 'yellow')
         print (' ┗ ' + branch)
 
-        read = input('Ready? [n/Y]')
-        if read == 'no' or read == 'NO' or read == 'n' or read == 'N':
+        try:
+            read = input('Ready? [n/Y]')
+            if read == 'no' or read == 'NO' or read == 'n' or read == 'N':
+                exit()
+            elif read == 'yes' or read == 'YES' or read == 'y' or read == 'Y':
+                Conditional.do_git_commit(message)
+                Color.set('Commit done. ✔', 'green')
+            else:
+                Conditional.do_git_commit(message)
+                Color.set('Commit done. ✔', 'green')
+        except (KeyboardInterrupt) as e:
+            print()
             exit()
-        elif read == 'yes' or read == 'YES' or read == 'y' or read == 'Y':
-            Conditional.do_git_commit(message)
-            Color.set('Commit done. ✔', 'green')
-        else:
-            Conditional.do_git_commit(message)
-            Color.set('Commit done. ✔', 'green')
 
     #------------------------------
     # Push
@@ -107,15 +115,19 @@ class MainClass:
         Color.set('branch', 'yellow')
         print (' ┗ ' + branch)
 
-        read = input('Ready? [n/Y]')
-        if read == 'no' or read == 'NO' or read == 'n' or read == 'N':
-            exit()
-        elif read == 'yes' or read == 'YES' or read == 'y' or read == 'Y':
-            push = Conditional.do_git_push(branch)
-            Color.set('Push done. ✔', 'green')
-        else:
-            push = Conditional.do_git_push(branch)
-            Color.set('Push done. ✔', 'green')
+        try:
+            read = input('Ready? [n/Y]')
+            if read == 'no' or read == 'NO' or read == 'n' or read == 'N':
+                exit()
+            elif read == 'yes' or read == 'YES' or read == 'y' or read == 'Y':
+                push = Conditional.do_git_push(branch)
+                Color.set('Push done. ✔', 'green')
+            else:
+                push = Conditional.do_git_push(branch)
+                Color.set('Push done. ✔', 'green')
+                exit()
+        except (KeyboardInterrupt) as e:
+            print()
             exit()
 
     #------------------------------
@@ -135,27 +147,39 @@ class MainClass:
         if new_tag == 0:
             Color.set('Latest tag is ' + latest, 'green')
             Color.set('Auto incremented version is ' + patch_ver, 'green')
-            read = input('Ready? [n/Y]')
-            if read == 'no' or read == 'NO' or read == 'n' or read == 'N':
+            try:
+                read = input('Ready? [n/Y]')
+                if read == 'no' or read == 'NO' or read == 'n' or read == 'N':
+                    exit()
+                elif read == 'yes' or read == 'YES' or read == 'y' or read == 'Y':
+                    Conditional.do_git_tag(patch_ver)
+                    Conditional.do_command('git push origin --tag')
+                else:
+                    Color.set('Process aborted.', 'red')
+                    exit()
+            except (KeyboardInterrupt) as e:
+                print()
                 exit()
-            elif read == 'yes' or read == 'YES' or read == 'y' or read == 'Y':
-                Conditional.do_git_tag(patch_ver)
-                Conditional.do_command('git push origin --tag')
-            else:
-                Color.set('Process aborted.', 'red')
-                exit()
+
+
+
         else: # user add a tag
             Color.set('Latest tag is ' + latest, 'green')
             Color.set('New tag is ' + new_tag, 'green')
-            read = input('Ready? [n/Y]')
-            if read == 'no' or read == 'NO' or read == 'n' or read == 'N':
+            try:
+                read = input('Ready? [n/Y]')
+                if read == 'no' or read == 'NO' or read == 'n' or read == 'N':
+                    exit()
+                elif read == 'yes' or read == 'YES' or read == 'y' or read == 'Y':
+                    Conditional.do_git_tag(new_tag)
+                    Conditional.do_command('git push origin --tag')
+                else:
+                    Color.set('Process aborted.', 'red')
+                    exit()
+            except (KeyboardInterrupt) as e:
+                print()
                 exit()
-            elif read == 'yes' or read == 'YES' or read == 'y' or read == 'Y':
-                Conditional.do_git_tag(new_tag)
-                Conditional.do_command('git push origin --tag')
-            else:
-                Color.set('Process aborted.', 'red')
-                exit()
+
 
     #------------------------------
     # How to use

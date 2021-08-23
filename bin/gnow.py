@@ -63,6 +63,11 @@ if __name__ == '__main__':
     elif arg1 == '-' or arg1 == '--':
         Color.set("Illegal option: Only '-' or '--'",'red')
         exit()
+    # Logo
+    elif arg1 == '-l':
+        print(''' _  _  _   
+(_|| |(_)VV
+ _| 0.0.1''')
     # Undefined option
     elif arg1 != 0 and re.compile('^-.*').search(arg1):
         Color.set("Illegal option: Undefined option '" + arg1 + "'",'red')

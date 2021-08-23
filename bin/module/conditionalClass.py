@@ -139,9 +139,9 @@ class ConditionalClass:
         else:
             max_file_name = len(max((x for x in status_list), key=len))
         if max_file_name <= 14:
-            border = '-' * 14
+            border = '-' * 15
         else:
-            border = '-' * ( max_file_name + 1)
+            border = '-' * (max_file_name + 2)
 
         print(border)
         Color.set(' Index ', 'white', 'green')
