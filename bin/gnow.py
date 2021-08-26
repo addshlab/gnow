@@ -3,16 +3,16 @@ import sys
 import re
 
 # Import text color class.
-from module import colorClass
-Color = colorClass.ColorClass()
+from module import color
+Color = color.ColorClass()
 
-# Import conditional class.
-from module import conditionalClass
-Conditional = conditionalClass.ConditionalClass()
+# Import check class.
+from module import check
+Check = check.CheckClass()
 
 # Import main class.
-from module import mainClass
-Main = mainClass.MainClass()
+from module import main
+Main = main.MainClass()
 
 #------------------------------
 # Command arguments
@@ -31,7 +31,7 @@ if len(sys.argv) >= 4:
 else:
     arg3 = 0
 
-if Conditional.repository_exists() == 0:
+if Check.repository_exists() == 0:
     Color.set(' No git repository exists in this directory. ', 'red', 'white')
     exit()
 
@@ -59,7 +59,7 @@ if __name__ == '__main__':
             Main.fast_tag(arg2)
     # Status
     elif arg1 == '-s' or arg1 == '--status':
-        Conditional.status()
+        Check.status()
     elif arg1 == '-' or arg1 == '--':
         Color.set("Illegal option: Only '-' or '--'",'red')
         exit()

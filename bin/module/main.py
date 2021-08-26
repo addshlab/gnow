@@ -2,12 +2,12 @@ import datetime
 import time
 
 # Import text color class.
-from module import colorClass
-Color = colorClass.ColorClass()
+from module import color
+Color = color.ColorClass()
 
-# Import conditional class.
-from module import conditionalClass
-Conditional = conditionalClass.ConditionalClass()
+# Import check class.
+from module import check
+Check = check.CheckClass()
 
 class MainClass:
     #def __init(selft):
@@ -22,10 +22,10 @@ class MainClass:
             if read == 'no' or read == 'NO' or read == 'n' or read == 'N':
                 print('No files add to index.')
             elif read == 'yes' or read == 'YES' or read == 'y' or read == 'Y':
-                Conditional.do_git_add()
+                Check.do_git_add()
                 Color.set('Staging done. ✔', 'green')
             else:
-                Conditional.do_git_add()
+                Check.do_git_add()
                 Color.set('Staging done. ✔', 'green')
         except (KeyboardInterrupt) as e:
             print()
@@ -37,7 +37,7 @@ class MainClass:
     def fast_commit(self, input_message = ''):
         Color.set(' COMMIT ', 'green', 'white')
 
-        if Conditional.is_change('workingtree') == False:
+        if Check.is_change('workingtree') == False:
             Color.set('Nothing to working tree.', 'green')
         else:
             Color.set('File exists to working tree.', 'yellow')
@@ -47,17 +47,17 @@ class MainClass:
         # If there is no commit message argument, the date and status will be used as the message.
         if input_message == '':
             now     = str(datetime.datetime.today())
-            message = Conditional.format_status(Conditional.get_git_status())
+            message = Check.format_status(Check.get_git_status())
         else:
             message = input_message
 
         # ローカルのブランチが存在しない初回pushとみられる場合はmasterにpushする
         # Push to master if it appears to be the first push where no local branch exists.
-        if Conditional.branch_exists() == '':
+        if Check.branch_exists() == '':
             branch = 'main'
             Color.set('Initial commit.', 'yellow')
         else:
-            branch = Conditional.branch_exists()
+            branch = Check.branch_exists()
 
         Color.set('message', 'yellow')
         print (' ┗ ' + message)
@@ -69,10 +69,10 @@ class MainClass:
             if read == 'no' or read == 'NO' or read == 'n' or read == 'N':
                 exit()
             elif read == 'yes' or read == 'YES' or read == 'y' or read == 'Y':
-                Conditional.do_git_commit(message)
+                Check.do_git_commit(message)
                 Color.set('Commit done. ✔', 'green')
             else:
-                Conditional.do_git_commit(message)
+                Check.do_git_commit(message)
                 Color.set('Commit done. ✔', 'green')
         except (KeyboardInterrupt) as e:
             print()
@@ -82,15 +82,15 @@ class MainClass:
     # Push
     #------------------------------
     def fast_push(self, input_message = ''):
-        Conditional.status()
+        Check.status()
         # Check any file exists in the working tree.
-        if Conditional.is_change('workingtree') == False:
+        if Check.is_change('workingtree') == False:
             Color.set('Nothing to index.', 'yellow')
         else:
             Color.set('File exists to working tree.', 'yellow')
             self.fast_add()
         # Check any file exists in the index. 
-        if Conditional.is_change('index') == False:
+        if Check.is_change('index') == False:
             Color.set('Nothing to working tree.', 'yellow')
         else:
             Color.set("File exists to index. Let's commit to these!", 'yellow')
@@ -98,18 +98,18 @@ class MainClass:
 
         # コミット済みファイルが存在するか
         # Check any file exists in the index. 
-        if Conditional.commit_exists() == False:
+        if Check.commit_exists() == False:
             Color.set('No files committed.', 'yellow')
             exit()
 
         Color.set(' PUSH ', 'green', 'white')
 
         # ローカルのブランチが存在しない初回pushとみられる場合はmasterにpushする
-        if Conditional.branch_exists == 0:
+        if Check.branch_exists == 0:
             branch = 'main'
             Color.set('Initial commit', 'yellow')
         else:
-            branch = Conditional.get_git_branch() 
+            branch = Check.get_git_branch() 
 
         print('Push your commits.')
         Color.set('branch', 'yellow')
@@ -120,10 +120,10 @@ class MainClass:
             if read == 'no' or read == 'NO' or read == 'n' or read == 'N':
                 exit()
             elif read == 'yes' or read == 'YES' or read == 'y' or read == 'Y':
-                push = Conditional.do_git_push(branch)
+                push = Check.do_git_push(branch)
                 Color.set('Push done. ✔', 'green')
             else:
-                push = Conditional.do_git_push(branch)
+                push = Check.do_git_push(branch)
                 Color.set('Push done. ✔', 'green')
                 exit()
         except (KeyboardInterrupt) as e:
@@ -136,7 +136,7 @@ class MainClass:
     def fast_tag(self, new_tag = 0):
         Color.set(' TAG ', 'green', 'white')
 
-        latest = Conditional.get_latest_tag()
+        latest = Check.get_latest_tag()
         latest_list  = latest.split('.')
         latest_major = latest_list[0]
         latest_minor = latest_list[1]
@@ -152,8 +152,8 @@ class MainClass:
                 if read == 'no' or read == 'NO' or read == 'n' or read == 'N':
                     exit()
                 elif read == 'yes' or read == 'YES' or read == 'y' or read == 'Y':
-                    Conditional.do_git_tag(patch_ver)
-                    Conditional.do_command('git push origin --tag')
+                    Check.do_git_tag(patch_ver)
+                    Check.do_command('git push origin --tag')
                 else:
                     Color.set('Process aborted.', 'red')
                     exit()
@@ -171,8 +171,8 @@ class MainClass:
                 if read == 'no' or read == 'NO' or read == 'n' or read == 'N':
                     exit()
                 elif read == 'yes' or read == 'YES' or read == 'y' or read == 'Y':
-                    Conditional.do_git_tag(new_tag)
-                    Conditional.do_command('git push origin --tag')
+                    Check.do_git_tag(new_tag)
+                    Check.do_command('git push origin --tag')
                 else:
                     Color.set('Process aborted.', 'red')
                     exit()

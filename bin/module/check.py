@@ -1,14 +1,14 @@
 import subprocess
 
 # Import text color class.
-from module import colorClass
-Color = colorClass.ColorClass()
+from module import color
+Color = color.ColorClass()
 
 #------------------------------
 # Confirm the existence of the Git repository.
 #------------------------------
 
-class ConditionalClass:
+class CheckClass:
     #def __init__(self):
 
     def do_command(self,command):
@@ -21,22 +21,22 @@ class ConditionalClass:
         stdout_data, stderr_data = proc.communicate()
         return stdout_data.decode()
 
-    def repository_exists(self):
-        command = "git status -s 2>&1 > /dev/null | awk '{print $1}'"
+    def repository_exists(self, path = '.'):
+        command = "git -C %s status -s 2>&1 > /dev/null | awk '{print $1}'" % path
         if self.do_command(command) == '':
             return 1
         else:
             return 0
 
-    def stage_exists(self):
-        command = "git status -s"
+    def stage_exists(self, path = '.'):
+        command = "git -C %s status -s" % path
         if self.do_command(command) == '':
             return False
         else:
             return True
 
-    def get_git_status(self):
-        command = "git status -s"
+    def get_git_status(self, path = '.'):
+        command = "git -C %s status -s" % path
         status  = self.do_command(command)
         if not status:
             return ''
@@ -67,47 +67,48 @@ class ConditionalClass:
         else:
             return False
 
-    def get_git_branch(self):
-        command = "git rev-parse --abbrev-ref HEAD"
+    def get_git_branch(self, path = '.'):
+        command = "git -C %s rev-parse --abbrev-ref HEAD" % path
         branch  = self.do_command(command)
         return branch
 
-    def branch_exists(self):
-        command = "git branch"
+    def branch_exists(self, path = '.'):
+        command = "git -C %s branch" % path
         branch  = self.do_command(command)
         return branch
 
-    def commit_exists(self):
-        command = 'git log --pretty=format:"%H" origin/' + self.get_git_branch().rstrip('\r\n') + '..HEAD'
+    def commit_exists(self, path = '.'):
+        branch = self.get_git_branch().rstrip('\r\n')
+        command = 'git -C %s log --pretty=format:"%%H" origin/%s..HEAD' % (path, branch)
         commit  = self.do_command(command)
         if not commit:
             return False
         else:
             return commit
 
-    def get_latest_tag(self):
-        command = 'git tag | sed s/v//g | sort -t . -n -k1,1 -k2,2 -k3,3 | tail -n1'
+    def get_latest_tag(self, path = '.'):
+        command = 'git -C %s tag | sed s/v//g | sort -t . -n -k1,1 -k2,2 -k3,3 | tail -n1' % path
         tag     = self.do_command(command).replace('\n','')
         return tag
 
-    def do_git_tag(self,tag = 0):
-        command = 'git tag -a v' + tag + '-m v' + tag
+    def do_git_tag(self, tag = 0, path = '.'):
+        command = 'git -C %s tag -a v' % pash + tag + '-m v' + tag 
         tag     = self.do_command(command)
         return tag
 
-    def do_git_add(self):
-        command = 'git add -A'
+    def do_git_add(self, path = '.'):
+        command = 'git -C %s add -A' % path
         result  = self.do_command(command)
         return result
 
-    def do_git_commit(self, message = ''):
+    def do_git_commit(self, message = '', path = '.'):
         message = message.replace('\n','')
-        command = "git commit -m '" + message + "'"
+        command = 'git -C %s commit -m "%s"' % (path, message)
         result  = self.do_command(command)
         return result
 
-    def do_git_push(self, branch = 'main'):
-        command = 'git push origin ' + branch
+    def do_git_push(self, branch = 'main', path = '.'):
+        command = 'git -C %s push origin %s' % (path, branch)
         push    = self.do_command(command)
         return push
 
