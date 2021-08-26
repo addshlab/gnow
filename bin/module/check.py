@@ -92,7 +92,7 @@ class CheckClass:
         return tag
 
     def do_git_tag(self, tag = 0, path = '.'):
-        command = 'git -C %s tag -a v' % pash + tag + '-m v' + tag 
+        command = 'git -C %s tag -a v%s-m v' % (path, tag)
         tag     = self.do_command(command)
         return tag
 
