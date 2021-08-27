@@ -1,4 +1,5 @@
-[![pytest](https://github.com/addshlab/gnow/actions/workflows/gnow.yml/badge.svg)](https://github.com/addshlab/gnow/actions/workflows/gnow.yml) [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![pytest](https://github.com/addshlab/gnow/actions/workflows/python39.yml/badge.svg)][![pytest](https://github.com/addshlab/gnow/actions/workflows/python38.yml/badge.svg)][![pytest](https://github.com/addshlab/gnow/actions/workflows/python37.yml/badge.svg)][![pytest](https://github.com/addshlab/gnow/actions/workflows/python36.yml/badge.svg)][![pytest](https://github.com/addshlab/gnow/actions/workflows/python35.yml/badge.svg)][![pytest](https://github.com/addshlab/gnow/actions/workflows/python27.yml/badge.svg)]
+(https://github.com/addshlab/gnow/actions/workflows/gnow.yml) [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 # gnow command :: **g**it commit for **now**
 
 
