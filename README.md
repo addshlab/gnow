@@ -1,5 +1,11 @@
-[![Python 3.9](https://github.com/addshlab/gnow/actions/workflows/python39.yml/badge.svg)](https://github.com/addshlab/gnow/actions/workflows/python39.yml) [![Python 3.8](https://github.com/addshlab/gnow/actions/workflows/python38.yml/badge.svg)](https://github.com/addshlab/gnow/actions/workflows/python38.yml) [![Python 3.7](https://github.com/addshlab/gnow/actions/workflows/python37.yml/badge.svg)](https://github.com/addshlab/gnow/actions/workflows/python37.yml) [![Python 3.6](https://github.com/addshlab/gnow/actions/workflows/python36.yml/badge.svg)](https://github.com/addshlab/gnow/actions/workflows/python36.yml) [![Python 3.5](https://github.com/addshlab/gnow/actions/workflows/python35.yml/badge.svg)](https://github.com/addshlab/gnow/actions/workflows/python35.yml) [![Python 2.7](https://github.com/addshlab/gnow/actions/workflows/python27.yml/badge.svg)](https://github.com/addshlab/gnow/actions/workflows/python27.yml)
-(https://github.com/addshlab/gnow/actions/workflows/gnow.yml) [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![Python 3.9](https://github.com/addshlab/gnow/actions/workflows/python39.yml/badge.svg)](https://github.com/addshlab/gnow/actions/workflows/python39.yml)
+[![Python 3.8](https://github.com/addshlab/gnow/actions/workflows/python38.yml/badge.svg)](https://github.com/addshlab/gnow/actions/workflows/python38.yml)
+[![Python 3.7](https://github.com/addshlab/gnow/actions/workflows/python37.yml/badge.svg)](https://github.com/addshlab/gnow/actions/workflows/python37.yml)
+[![Python 3.6](https://github.com/addshlab/gnow/actions/workflows/python36.yml/badge.svg)](https://github.com/addshlab/gnow/actions/workflows/python36.yml)
+[![Python 3.5](https://github.com/addshlab/gnow/actions/workflows/python35.yml/badge.svg)](https://github.com/addshlab/gnow/actions/workflows/python35.yml)
+[![Python 2.7](https://github.com/addshlab/gnow/actions/workflows/python27.yml/badge.svg)](https://github.com/addshlab/gnow/actions/workflows/python27.yml)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+
 # gnow command :: **g**it commit for **now**
 
 
