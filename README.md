@@ -1,11 +1,6 @@
-[![pytest](https://github.com/addshlab/gnow/actions/workflows/gnow.yml/badge.svg)](https://github.com/addshlab/gnow/actions/workflows/gnow.yml) ![NO SUPPORT](http://add.sh/images/no-support.png) ![NO GUARANTEE](http://add.sh/images/no-guarantee.png)
-
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![pytest](https://github.com/addshlab/gnow/actions/workflows/gnow.yml/badge.svg)](https://github.com/addshlab/gnow/actions/workflows/gnow.yml) [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 # gnow command :: **g**it commit for **now**
 
-## 注意
-
-このソフトウェアはサポート無し・動作保証無しです。第三者からの要望は受け付けていません。
 
 ## 説明
 
@@ -81,6 +76,7 @@ $ gnow README追加
 
 ## 履歴
 
+* 2021-07-09 Pythonへの移植開始
 * 2021-06-14 バージョン表記をハードコードに変更。v1.0.0とする。
 * 2020-07-30 バージョン表示機能、タグ機能の追加
 * 2020-07-10 ローカルの初回コミット時は master ブランチにpushする
