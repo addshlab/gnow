@@ -2,8 +2,10 @@ from setuptools import setup, find_packages
 
 setup(
     name='gnow',
-    version='0.1',
+    version='0.2',
     description='This is a wrapper command to make git add/commit/push easier.',
+    long_description=open('README.md').read(),
+    long_description_content_type='text/markdown',
     url='https://github.com/addshlab/gnow',
     author='addshlab',
     author_email='info@add.sh',
