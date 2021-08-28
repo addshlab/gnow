@@ -1,6 +1,6 @@
 # Import main class.
-from module import check
-Check = check.CheckClass()
+from .check import CheckClass
+Check = CheckClass()
 
 def create_dir():
     Check.do_command('mkdir git_test')
