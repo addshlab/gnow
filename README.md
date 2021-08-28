@@ -3,7 +3,6 @@
 [![Python 3.7](https://github.com/addshlab/gnow/actions/workflows/python37.yml/badge.svg)](https://github.com/addshlab/gnow/actions/workflows/python37.yml)
 [![Python 3.6](https://github.com/addshlab/gnow/actions/workflows/python36.yml/badge.svg)](https://github.com/addshlab/gnow/actions/workflows/python36.yml)
 [![Python 3.5](https://github.com/addshlab/gnow/actions/workflows/python35.yml/badge.svg)](https://github.com/addshlab/gnow/actions/workflows/python35.yml)
-[![Python 2.7](https://github.com/addshlab/gnow/actions/workflows/python27.yml/badge.svg)](https://github.com/addshlab/gnow/actions/workflows/python27.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 # gnow
