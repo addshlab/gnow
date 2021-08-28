@@ -7,7 +7,7 @@ function yellow { echo -e "\e[33m$*\e[m"; }
 
 DIR=$(cd $(dirname $0); pwd)
 
-APP=gnow2
+APP=gnow
 CMD_EXIST=`command -v ${APP}`
 
 sudo chmod 777 ${DIR}/bin/gnow.py

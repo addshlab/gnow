@@ -1,13 +1,10 @@
 import datetime
 import time
 
-# Import text color class.
-from module import color
-Color = color.ColorClass()
-
-# Import check class.
-from module import check
-Check = check.CheckClass()
+from .color import ColorClass
+from .check import CheckClass
+Color = ColorClass()
+Check = CheckClass()
 
 class MainClass:
     #def __init(selft):

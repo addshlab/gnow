@@ -1,8 +1,8 @@
 import subprocess
 
-# Import text color class.
-from module import color
-Color = color.ColorClass()
+from .color import ColorClass
+
+Color = ColorClass()
 
 #------------------------------
 # Confirm the existence of the Git repository.

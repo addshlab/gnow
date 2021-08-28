@@ -1,0 +1,19 @@
+Metadata-Version: 1.1
+Name: gnow
+Version: 0.1
+Summary: This is a wrapper command to make git add/commit/push easier.
+Home-page: https://github.com/addshlab/gnow
+Author: addshlab
+Author-email: info@add.sh
+License: MIT
+Description: UNKNOWN
+Keywords: git
+Platform: UNKNOWN
+Classifier: Topic :: Software Development :: Version Control :: Git
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.5
+Classifier: License :: OSI Approved :: MIT License

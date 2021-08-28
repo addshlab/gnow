@@ -2,40 +2,36 @@
 import sys
 import re
 
-# Import text color class.
-from module import color
-Color = color.ColorClass()
+from .color import ColorClass
+from .check import CheckClass
+from .main import MainClass
 
-# Import check class.
-from module import check
-Check = check.CheckClass()
-
-# Import main class.
-from module import main
-Main = main.MainClass()
+Color = ColorClass()
+Check = CheckClass()
+Main  = MainClass()
 
 #------------------------------
 # Command arguments
 #------------------------------
 
-if len(sys.argv) >= 2:
-    arg1 = sys.argv[1]
-else:
-    arg1 = 0
-if len(sys.argv) >= 3:
-    arg2 = sys.argv[2]
-else:
-    arg2 = 0
-if len(sys.argv) >= 4:
-    arg3 = sys.argv[3]
-else:
-    arg3 = 0
-
-if Check.repository_exists() == 0:
-    Color.set(' No git repository exists in this directory. ', 'red', 'white')
-    exit()
-
-if __name__ == '__main__':
+def run():
+    if len(sys.argv) >= 2:
+        arg1 = sys.argv[1]
+    else:
+        arg1 = 0
+    if len(sys.argv) >= 3:
+        arg2 = sys.argv[2]
+    else:
+        arg2 = 0
+    if len(sys.argv) >= 4:
+        arg3 = sys.argv[3]
+    else:
+        arg3 = 0
+    
+    if Check.repository_exists() == 0:
+        Color.set(' No git repository exists in this directory. ', 'red', 'white')
+        exit()
+    
     #Color.set('green', 'arugana')
     # Help
     if arg1 == '-h' or arg1 == '--help':
@@ -79,3 +75,6 @@ if __name__ == '__main__':
         Main.fast_push()
     else:
         exit()
+
+if __name__ == '__main__':
+    run()

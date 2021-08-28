@@ -6,7 +6,7 @@ function red { echo -e "\e[31m$*\e[m"; }
 function yellow { echo -e "\e[33m$*\e[m"; }
 
 DIR=$(cd $(dirname $0); pwd)
-APP=gnow2
+APP=gnow
 CMD_EXIST=`command -v ${APP}`
 
 if [ ${CMD_EXIST} ]; then
