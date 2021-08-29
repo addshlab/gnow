@@ -117,18 +117,42 @@ class CheckClass:
         workingtree_i = 0
         status = self.get_git_status()
         status_dict = {
-            'M  ':'i.Updated ',
+            'M  ':'i.Modified ',
+            'MM ':'i.Modified*',
+            'MD ':'i.Modified* ',
             'A  ':'i.Added ',
+            'AM ':'i.Added* ',
+            'AD ':'i.Added* ',
             'D  ':'i.Deleted ',
             'R  ':'i.Renamed ',
+            'RM ':'i.Renamed* ',
+            'RD ':'i.Renamed* ',
             'C  ':'i.Copied ',
+            'CM ':'i.Copied* ',
+            'CD ':'i.Copied* ',
             ' M ':'w.Updated ',
-            ' A ':'w.Added ',
+            'MM ':'w.Updated* ',
+            'AM ':'w.Updated* ',
+            'RM ':'w.Updated* ',
+            'CM ':'w.Updated* ',
             ' D ':'w.Deleted ',
+            'MD ':'w.Deleted* ',
+            'AD ':'w.Deleted* ',
+            'RD ':'w.Deleted* ',
+            'CD ':'w.Deleted* ',
             ' R ':'w.Renamed ',
+            'DR ':'w.Renamed* ',
             ' C ':'w.Copied ',
+            'DC ':'w.Copied* ',
+            'DD ':'o.Unmerged ',
+            'AU ':'o.Unmerged ',
+            'UD ':'o.Unmerged ',
+            'UA ':'o.Unmerged ',
+            'DU ':'o.Unmerged ',
+            'AA ':'o.Unmerged ',
+            'UU ':'o.Unmerged ',
             '?? ':'o.Untracked ',
-            '!! ':'o.Ignored '
+            '!! ':'o.Ignored ',
         }
         for word, read in status_dict.items():
             status = status.replace(word, read)
@@ -145,14 +169,6 @@ class CheckClass:
             border = '-' * (max_file_name + 2)
 
         print(border)
-        Color.set(' Index ', 'white', 'green')
-        it = iter(status_list)
-        for item in status_list:
-            if item.startswith('i.'):
-                print(' - ' + item.strip('i.'))
-                index_i += 1
-        if index_i == 0:
-            print(' - No files.')
 
         Color.set(' Working tree ', 'white', 'red')
         for item in status_list:
@@ -166,6 +182,16 @@ class CheckClass:
                     workingtree_i += 1
         if workingtree_i == 0:
             print(' - No files.')
+
+        Color.set(' Index ', 'white', 'green')
+        it = iter(status_list)
+        for item in status_list:
+            if item.startswith('i.'):
+                print(' - ' + item.strip('i.'))
+                index_i += 1
+        if index_i == 0:
+            print(' - No files.')
+
         print(border)
 
     def format_status(self, status = ''):

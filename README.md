@@ -7,7 +7,7 @@
 
 # gnow
 
-This is a wrapper command to make git add/commit/push and tagging easier.
+A wrapper command to make git add/commit/push and tagging easier.
 
 ## Installation
 
@@ -49,8 +49,7 @@ $ gnow -t X.Y.Z
 $ gnow -s
 ```
 
-
 ## Changelog
 
-* 2021-07-09 Start porting to Python
-* 2020-07-09 Published a bash script version on Github
+- 2021-07-09 Start porting to Python
+- 2020-07-09 Published a bash script version on Github

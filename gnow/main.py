@@ -17,7 +17,7 @@ class MainClass:
         try:
             read = input('Add a file to the index? [n/Y]')
             if read == 'no' or read == 'NO' or read == 'n' or read == 'N':
-                print('No files add to index.')
+                exit()
             elif read == 'yes' or read == 'YES' or read == 'y' or read == 'Y':
                 Check.do_git_add()
                 Color.set('Staging done. ✔', 'green')
