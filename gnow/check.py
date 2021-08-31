@@ -24,9 +24,9 @@ class CheckClass:
     def repository_exists(self, path = '.'):
         command = "git -C %s status -s 2>&1 > /dev/null | awk '{print $1}'" % path
         if self.do_command(command) == '':
-            return 1
+            return True
         else:
-            return 0
+            return False
 
     def stage_exists(self, path = '.'):
         command = "git -C %s status -s" % path
@@ -112,6 +112,9 @@ class CheckClass:
         push    = self.do_command(command)
         return push
 
+    """
+    see also: https://git-scm.com/docs/git-status
+    """
     def status(self, status = ''):
         index_i       = 0
         workingtree_i = 0

@@ -157,9 +157,6 @@ class MainClass:
             except (KeyboardInterrupt) as e:
                 print()
                 exit()
-
-
-
         else: # user add a tag
             Color.set('Latest tag is ' + latest, 'green')
             Color.set('New tag is ' + new_tag, 'green')
@@ -177,7 +174,6 @@ class MainClass:
                 print()
                 exit()
 
-
     #------------------------------
     # How to use
     #------------------------------
@@ -187,7 +183,9 @@ class MainClass:
         print("This is the 'gnow' command to do a quick git commit and git push.")
         print('')
         print("Options:")
+        print("  (no args): Run git add -> commit -> push")
         print("  -h, --help :Show helps.")
         print("  -v, -V, --version :Show version.")
+        print("  -c, --commit [ARG] :Commit only.")
         print("  -t, --tag [ARG] :Add tag. If no argument, current version will be automatically incremented.")
 
