@@ -86,6 +86,15 @@ class CheckClass:
         else:
             return commit
 
+    def get_unpushed_list(self, path = '.'):
+        branch = self.get_git_branch().rstrip('\r\n')
+        command = 'git -C %s log --pretty=format:"%%h" origin/%s..HEAD' % (path, branch)
+        log = self.do_command(command)
+        if not log:
+            return False
+        else:
+            return log
+
     def get_latest_tag(self, path = '.'):
         command = 'git -C %s tag | sed s/v//g | sort -t . -n -k1,1 -k2,2 -k3,3 | tail -n1' % path
         tag     = self.do_command(command).replace('\n','')
@@ -194,6 +203,12 @@ class CheckClass:
                 index_i += 1
         if index_i == 0:
             print(' - No files.')
+
+        Color.set(' Unpushed Commit ', 'white', 'green')
+        if self.get_unpushed_list():
+            print(self.get_unpushed_list())
+        else:
+            print(' - No commits.')
 
         print(border)
 
