@@ -87,7 +87,6 @@ class MainClass:
         # コミット済みファイルが存在するか
         # Check any file exists in the index. 
         if Check.commit_exists() == False:
-            Color.set('No files committed.', 'yellow')
             exit()
 
         Color.set(' PUSH ', 'green', 'white')
