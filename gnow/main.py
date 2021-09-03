@@ -34,10 +34,7 @@ class MainClass:
     def fast_commit(self, input_message = ''):
         Color.set(' COMMIT ', 'green', 'white')
 
-        if Check.is_change('workingtree') == False:
-            Color.set('Nothing to working tree.', 'green')
-        else:
-            Color.set('File exists to working tree.', 'yellow')
+        if Check.is_change('workingtree') == True:
             self.fast_add()
 
         # コミットメッセージ引数が無い場合は日付とステータスをメッセージとする
@@ -81,16 +78,10 @@ class MainClass:
     def fast_push(self, input_message = ''):
         Check.status()
         # Check any file exists in the working tree.
-        if Check.is_change('workingtree') == False:
-            Color.set('Nothing to index.', 'yellow')
-        else:
-            Color.set('File exists to working tree.', 'yellow')
+        if Check.is_change('workingtree') == True:
             self.fast_add()
         # Check any file exists in the index. 
-        if Check.is_change('index') == False:
-            Color.set('Nothing to working tree.', 'yellow')
-        else:
-            Color.set("File exists to index. Let's commit to these!", 'yellow')
+        if Check.is_change('index') == True:
             self.fast_commit(input_message)
 
         # コミット済みファイルが存在するか
