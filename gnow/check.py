@@ -88,12 +88,14 @@ class CheckClass:
 
     def get_unpushed_list(self, path = '.'):
         branch = self.get_git_branch().rstrip('\r\n')
-        command = 'git -C %s log --pretty=format:"%%h" origin/%s..HEAD' % (path, branch)
-        log = self.do_command(command)
-        if not log:
+        command1 = 'git -C %s log --pretty=format:"%%h" origin/%s..HEAD' % (path, branch)
+        command2 = 'git -C %s log --pretty=format:"%%d" origin/%s..HEAD' % (path, branch)
+        short_hash = self.do_command(command1)
+        ref_name   = self.do_command(command2)
+        if not short_hash:
             return False
         else:
-            return log
+            return short_hash + ref_name
 
     def get_latest_tag(self, path = '.'):
         command = 'git -C %s tag | sed s/v//g | sort -t . -n -k1,1 -k2,2 -k3,3 | tail -n1' % path
