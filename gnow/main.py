@@ -122,7 +122,8 @@ class MainClass:
     def fast_tag(self, new_tag = 0):
         Color.set(' TAG ', 'green', 'white')
 
-        latest = Check.get_latest_tag()
+        if Check.get_latest_tag() == '':
+            latest = '0.0.0'
         latest_list  = latest.split('.')
         latest_major = latest_list[0]
         latest_minor = latest_list[1]
@@ -131,7 +132,10 @@ class MainClass:
         patch_ver       = latest_major + '.' + latest_minor + '.' + str(patch_increment)
 
         if new_tag == 0:
-            Color.set('Latest tag is ' + latest, 'green')
+            if Check.get_latest_tag() == '':
+                Color.set('No tags are currently.', 'green')
+            else:
+                Color.set('Latest tag is ' + latest, 'green')
             Color.set('Auto incremented version is ' + patch_ver, 'green')
             try:
                 read = input('Tagging? [n/Y or Enter]')
@@ -147,7 +151,10 @@ class MainClass:
                 print()
                 exit()
         else: # user add a tag
-            Color.set('Latest tag is ' + latest, 'green')
+            if Check.get_latest_tag() == '':
+                Color.set('No tags are currently.', 'green')
+            else:
+                Color.set('Latest tag is ' + latest, 'green')
             Color.set('New tag is ' + new_tag, 'green')
             try:
                 read = input('Tagging? [n/Y or Enter]')
