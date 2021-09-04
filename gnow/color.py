@@ -22,11 +22,21 @@ class ColorClass:
         'white'  : ';47',
     }
 
+    self.style = {
+        'bold'      : ';1',
+        'em'        : ';2',
+        'underline' : ';4',
+        'blink'     : ';5',
+        'invert'    : ';7',
+        'hidden'    : ';8',
+    }
+
     self.end    = '\033[0m'
 
-  def set(self, text, color, background = ''):
+  def set(self, text, color, background = '', style = ''):
     colorCode = self.colors.get(color, '\033[30m')
     bgCode    = self.backgrounds.get(background, '')
-    output    = colorCode + bgCode + 'm' + text + self.end
+    styleCode = self.style.get(style, '')
+    output    = colorCode + bgCode + styleCode + 'm' + text + self.end
     print(output)
 
