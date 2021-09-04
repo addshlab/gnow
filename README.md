@@ -17,6 +17,21 @@ $ pip install gnow
 
 ## Usage
 
+### Status
+
+```
+$ gnow -s
+main
+-----------------
+ Working tree
+ - No files.
+ Index
+ - No files.
+ Unpushed commit
+ - No commits.
+-----------------
+```
+
 ### git add -> git commit -> git push
 
 ```
@@ -41,12 +56,6 @@ $ gnow -t
 
 # Manual input
 $ gnow -t X.Y.Z
-```
-
-### Status
-
-```
-$ gnow -s
 ```
 
 ## Changelog
