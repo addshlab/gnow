@@ -84,7 +84,6 @@ $ gnow -c 'YOUR COMMIT MESSAGE'
 ```
 # Auto input (Automatically increments the patch version)
 $ gnow -t
-[centos@myd gnow -t
  TAG
 Latest tag is 1.0.1
 New tag is 1.0.2
