@@ -182,6 +182,8 @@ class CheckClass:
         else:
             border = '-' * (max_file_name + 2)
 
+        print('Current branch: ' + self.get_git_branch(), end='')
+
         print(border)
 
         Color.set(' Working tree ', 'white', 'red')
