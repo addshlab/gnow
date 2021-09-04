@@ -69,7 +69,7 @@ class CheckClass:
 
     def get_git_branch(self, path = '.'):
         command = "git -C %s rev-parse --abbrev-ref HEAD" % path
-        branch  = self.do_command(command)
+        branch  = self.do_command(command).replace('\n', '')
         return branch
 
     def branch_exists(self, path = '.'):
@@ -182,7 +182,7 @@ class CheckClass:
         else:
             border = '-' * (max_file_name + 2)
 
-        print('Current branch: ' + self.get_git_branch(), end='')
+        Color.set(' ' + self.get_git_branch() + ' ', 'white', 'green', 'bold')
 
         print(border)
 
