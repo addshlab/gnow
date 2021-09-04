@@ -15,7 +15,7 @@ class MainClass:
     def fast_add(self):
         Color.set(' ADD ', 'green', 'white')
         try:
-            read = input('Add a file to the index? [n/Y]')
+            read = input('Add a file to the index? [n/Y or Enter]')
             if read == 'no' or read == 'NO' or read == 'n' or read == 'N':
                 exit()
             elif read == 'yes' or read == 'YES' or read == 'y' or read == 'Y':
@@ -51,7 +51,7 @@ class MainClass:
             branch = 'main'
             Color.set('Initial commit.', 'yellow')
         else:
-            branch = Check.branch_exists()
+            branch = Check.get_git_branch()
 
         Color.set('message', 'yellow')
         print (' ┗ ' + message)
@@ -59,7 +59,7 @@ class MainClass:
         print (' ┗ ' + branch)
 
         try:
-            read = input('Ready? [n/Y]')
+            read = input('Commiting? [n/Y or Enter]')
             if read == 'no' or read == 'NO' or read == 'n' or read == 'N':
                 exit()
             elif read == 'yes' or read == 'YES' or read == 'y' or read == 'Y':
@@ -98,12 +98,11 @@ class MainClass:
         else:
             branch = Check.get_git_branch() 
 
-        print('Push your commits.')
         Color.set('branch', 'yellow')
         print (' ┗ ' + branch)
 
         try:
-            read = input('Ready? [n/Y]')
+            read = input('Push? [n/Y or Enter]')
             if read == 'no' or read == 'NO' or read == 'n' or read == 'N':
                 exit()
             elif read == 'yes' or read == 'YES' or read == 'y' or read == 'Y':
@@ -135,7 +134,7 @@ class MainClass:
             Color.set('Latest tag is ' + latest, 'green')
             Color.set('Auto incremented version is ' + patch_ver, 'green')
             try:
-                read = input('Ready? [n/Y]')
+                read = input('Tagging? [n/Y or Enter]')
                 if read == 'no' or read == 'NO' or read == 'n' or read == 'N':
                     exit()
                 elif read == 'yes' or read == 'YES' or read == 'y' or read == 'Y':
@@ -151,7 +150,7 @@ class MainClass:
             Color.set('Latest tag is ' + latest, 'green')
             Color.set('New tag is ' + new_tag, 'green')
             try:
-                read = input('Ready? [n/Y]')
+                read = input('Tagging? [n/Y or Enter]')
                 if read == 'no' or read == 'NO' or read == 'n' or read == 'N':
                     exit()
                 elif read == 'yes' or read == 'YES' or read == 'y' or read == 'Y':

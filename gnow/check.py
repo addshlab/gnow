@@ -74,7 +74,7 @@ class CheckClass:
 
     def branch_exists(self, path = '.'):
         command = "git -C %s branch" % path
-        branch  = self.do_command(command)
+        branch  = self.do_command(command).replace('\n', '')
         return branch
 
     def commit_exists(self, path = '.'):

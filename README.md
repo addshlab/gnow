@@ -35,7 +35,38 @@ main
 ### git add -> git commit -> git push
 
 ```
+# Auto commit message
 $ gnow
+
+# Manual commit message
+$ gnow 'YOUR COMMIT MESSAGE'
+
+ main
+---------------------
+ Working tree
+ - Updated README.md
+ Index
+ - No files.
+ Unpushed commit
+ - No commits.
+---------------------
+ ADD
+Add a file to the index? [n/Y or Enter]
+Staging done. ✔
+
+ COMMIT
+message
+ ┗ Updated README.md
+branch
+ ┗ main
+Commiting? [n/Y or Enter]
+Commit done. ✔
+
+ PUSH
+branch
+ ┗ main
+Push? [n/Y or Enter]
+Push done. ✔
 ```
 
 ### git commit
