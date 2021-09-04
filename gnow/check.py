@@ -197,7 +197,7 @@ class CheckClass:
                     Color.set(item.strip('o.'), 'red')
                     workingtree_i += 1
         if workingtree_i == 0:
-            Color.set(' - No commits.', 'white', '', 'em')
+            Color.set(' - No files.', 'white', '', 'em')
 
         Color.set(' Index ', 'purple', '', 'bold')
         it = iter(status_list)
@@ -206,7 +206,7 @@ class CheckClass:
                 print(' - ' + item.strip('i.'))
                 index_i += 1
         if index_i == 0:
-            Color.set(' - No commits.', 'white', '', 'em')
+            Color.set(' - No files.', 'white', '', 'em')
 
         Color.set(' Unpushed commit ', 'purple', '', 'bold')
         if self.get_unpushed_list():
