@@ -124,6 +124,8 @@ class MainClass:
 
         if Check.get_latest_tag() == '':
             latest = '0.0.0'
+        else:
+            latest = Check.get_latest_tag()
         latest_list  = latest.split('.')
         latest_major = latest_list[0]
         latest_minor = latest_list[1]

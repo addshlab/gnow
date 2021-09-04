@@ -84,9 +84,24 @@ $ gnow -c 'YOUR COMMIT MESSAGE'
 ```
 # Auto input (Automatically increments the patch version)
 $ gnow -t
+[centos@myd gnow -t
+ TAG
+Latest tag is 1.0.1
+New tag is 1.0.2
 
 # Manual input
-$ gnow -t X.Y.Z
+$ gnow -t 1.0.0
+ TAG
+Latest tag is 0.0.6
+New tag is 1.0.0
+Tagging? [n/Y or Enter]
+
+# When there are no tag settings
+$ gnow -t
+ TAG
+No tags are currently.
+Auto incremented version is 0.0.1
+Tagging? [n/Y or Enter]
 ```
 
 ## Changelog
