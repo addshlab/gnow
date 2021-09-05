@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name='gnow',
-    version='1.0.3',
+    version='1.0.4',
     description='This is a wrapper command to make git add/commit/push easier.',
     long_description=long_description,
     long_description_content_type='text/markdown',

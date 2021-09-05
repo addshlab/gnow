@@ -33,10 +33,10 @@ class ColorClass:
 
     self.end    = '\033[0m'
 
-  def set(self, text, color, background = '', style = ''):
+  def set(self, text, color, background = '', style = '', end='\n'):
     colorCode = self.colors.get(color, '\033[30m')
     bgCode    = self.backgrounds.get(background, '')
     styleCode = self.style.get(style, '')
     output    = colorCode + bgCode + styleCode + 'm' + text + self.end
-    print(output)
+    print(output, end=end)
 

@@ -103,7 +103,7 @@ class CheckClass:
         return tag
 
     def do_git_tag(self, tag = 0, path = '.'):
-        command = 'git -C %s tag -a v%s-m v' % (path, tag)
+        command = 'git -C %s tag -a v%s -m "%s"' % (path, tag, tag)
         tag     = self.do_command(command)
         return tag
 
@@ -182,7 +182,12 @@ class CheckClass:
         else:
             border = '-' * (max_file_name + 2)
 
-        Color.set(' ' + self.get_git_branch() + ' ', 'white', 'green', 'bold')
+        Color.set(self.get_git_branch(), 'green', '', 'bold', '')
+
+        if self.get_latest_tag() == '':
+            Color.set(' (no tags)', 'white', '', 'em')
+        else:
+            Color.set(' (' + self.get_latest_tag() + ')', 'white', '', 'em')
 
         print(border)
 
