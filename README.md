@@ -74,12 +74,19 @@ $ gnow -c
 
 # Manual input
 $ gnow -c 'YOUR COMMIT MESSAGE'
+
+ADD files to the index? [n/Y or Enter]
+STAGING done. ✔
+
+COMMIT MESSAGE: Updated README.md
+BRANCH: main
+COMMIT the index contents? [n/Y or Enter]
+COMMIT done. ✔
 ```
 
 ### Tagging
 
-This command supports tags in vX.Y.Z format.
-The leading v is auto-filled.You only have to specify X.Y.Z.
+This command supports tags in vX.Y.Z format. The leading v is auto-filled. You only have to specify X.Y.Z.
 
 ```
 # Auto input (Automatically increments the patch version)
