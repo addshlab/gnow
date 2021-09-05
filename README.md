@@ -21,7 +21,8 @@ $ pip install gnow
 
 ```
 $ gnow -s
-main
+
+{CURRENT_BRANCH} ({CURRENT_TAG})
 -----------------
  Working tree
  - No files.
@@ -41,7 +42,7 @@ $ gnow
 # Manual commit message
 $ gnow 'YOUR COMMIT MESSAGE'
 
- main
+main (1.1.1)
 ---------------------
  Working tree
  - Updated README.md
@@ -50,26 +51,22 @@ $ gnow 'YOUR COMMIT MESSAGE'
  Unpushed commit
  - No commits.
 ---------------------
- ADD
-Add a file to the index? [n/Y or Enter]
-Staging done. ✔
+ADD files to the index? [n/Y or Enter]
+STAGING done. ✔
 
- COMMIT
-message
- ┗ Updated README.md
-branch
- ┗ main
-Commiting? [n/Y or Enter]
-Commit done. ✔
+COMMIT MESSAGE: Updated README.md
+BRANCH: main
+COMMIT the index contents? [n/Y or Enter]
+COMMIT done. ✔
 
- PUSH
-branch
- ┗ main
-Push? [n/Y or Enter]
-Push done. ✔
+BRANCH: main
+PUSH local commits? [n/Y or Enter]
+PUSH done. ✔
 ```
 
 ### git commit
+
+This operation is the same as `git commit`.
 
 ```
 # Auto input (Make the commit message the status of the file)
