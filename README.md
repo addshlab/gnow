@@ -78,26 +78,27 @@ $ gnow -c 'YOUR COMMIT MESSAGE'
 
 ### Tagging
 
+This command supports tags in vX.Y.Z format.
+The leading v is auto-filled.You only have to specify X.Y.Z.
+
 ```
 # Auto input (Automatically increments the patch version)
 $ gnow -t
- TAG
 Latest tag is 1.0.1
 New tag is 1.0.2
+TAG the latest commit? [n/Y or Enter]
 
 # Manual input
 $ gnow -t 1.0.0
- TAG
 Latest tag is 0.0.6
 New tag is 1.0.0
-Tagging? [n/Y or Enter]
+TAG the latest commit? [n/Y or Enter]
 
 # When there are no tag settings
 $ gnow -t
- TAG
 No tags are currently.
 Auto incremented version is 0.0.1
-Tagging? [n/Y or Enter]
+TAG the latest commit? [n/Y or Enter]
 ```
 
 ## Changelog
