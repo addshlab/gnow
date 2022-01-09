@@ -5,13 +5,12 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name='gnow',
-    version='1.0.4',
-    description='This is a wrapper command to make git add/commit/push easier.',
+    version='1.0.0',
+    description='This command makes it easy to git add / commit /push and auto-increment tagging.',
     long_description=long_description,
     long_description_content_type='text/markdown',
     url='https://github.com/addshlab/gnow',
     author='addshlab',
-    author_email='info@add.sh',
     license='MIT',
     keywords='git',
     packages=find_packages(),

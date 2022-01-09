@@ -45,7 +45,7 @@ class MainClass:
         else:
             message = input_message
 
-        # Push to master if it appears to be the first push where no local branch exists.
+        # Push to main if it appears to be the first push where no local branch exists.
         if Check.branch_exists() == '':
             branch = 'main'
             Color.set('Initial commit.', 'yellow')
@@ -91,7 +91,7 @@ class MainClass:
         if Check.commit_exists() == False:
             exit()
 
-        # ローカルのブランチが存在しない初回pushとみられる場合はmasterにpushする
+        # ローカルのブランチが存在しない初回pushとみられる場合はmainにpushする
         if Check.branch_exists == 0:
             branch = 'main'
             Color.set('Initial commit', 'yellow')

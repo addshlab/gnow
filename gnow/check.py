@@ -98,7 +98,7 @@ class CheckClass:
             return short_hash + ref_name
 
     def get_latest_tag(self, path = '.'):
-        command = 'git -C %s tag | sed s/v//g | sort -t . -n -k1,1 -k2,2 -k3,3 | tail -n1' % path
+        command = 'git -C %s tag | sed s/^v//g | sort -t . -n -k1,1 -k2,2 -k3,3 | tail -n1' % path
         tag     = self.do_command(command).replace('\n','')
         return tag
 
