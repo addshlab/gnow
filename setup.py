@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name='gnow',
-    version='1.0.0',
+    version='1.0.1',
     description='This command makes it easy to git add / commit /push and auto-increment tagging.',
     long_description=long_description,
     long_description_content_type='text/markdown',
