@@ -110,5 +110,6 @@ TAG the latest commit? [n/Y or Enter]
 
 ## Changelog
 
+- 2022-01-10 Minor fix
 - 2021-07-09 Start porting to Python
 - 2020-07-09 Published a bash script version on Github
